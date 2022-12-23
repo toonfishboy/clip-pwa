@@ -112,8 +112,6 @@ export function containerCalculator(deliveredAmount: number, necessaryAmount: nu
             return 1000 * round((deliveredAmount * 60 * ((necessaryAmount / deliveredAmount) - Math.pow((necessaryAmount / deliveredAmount), 2))) / (engineTolerance * (offPressure - onPressure)), 2);
         case "engineTolerance":
             return round(((deliveredAmount * 60 * ((necessaryAmount / deliveredAmount) - Math.pow((necessaryAmount / deliveredAmount), 2))) / (volume * (offPressure - onPressure))), 2);
-        default:
-            return '';
     }
 }
 
