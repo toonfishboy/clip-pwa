@@ -1,12 +1,16 @@
 import {AllHTMLAttributes, FC, PropsWithChildren} from "react";
 import classNames from "classnames";
+import LabelText from "./LabelText";
 
 export type  LabelWrapperProps = AllHTMLAttributes<HTMLLabelElement> & PropsWithChildren & {
-    label: string;
+    label?: string;
+    header?: JSX.Element;
 };
-const LabelWrapper: FC<LabelWrapperProps> = ({label,className,children, ...props}) => (
-    <label {...props} className={classNames(className)}>
-        <span>{label}</span>
+const LabelWrapper: FC<LabelWrapperProps> = ({header, label, className, children, ...props}) => (
+    <label {...props} className={classNames("flex  flex-col", className)}>
+        {header ?
+            header :
+            <LabelText>{label}</LabelText>}
         {children}
     </label>
 );

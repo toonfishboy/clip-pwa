@@ -2,6 +2,7 @@ import {FC} from "react";
 import {createHashHistory, createReactRouter, createRouteConfig, RouterProvider} from "@tanstack/react-router";
 import Home from "./Home";
 import ContainerCalculator from "./Calculator/ContainerCalculator";
+import PipeCableCalculator from "./Calculator/PipeCableCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -17,6 +18,7 @@ const containerRoute = rootRoute.createRoute({
 
 const pipeCableRoute = rootRoute.createRoute({
     path: "/pipeCable",
+    component: PipeCableCalculator
 });
 
 const routeConfig = rootRoute.addChildren([indexRoute, containerRoute, pipeCableRoute]);

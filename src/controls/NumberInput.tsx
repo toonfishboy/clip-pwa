@@ -33,8 +33,9 @@ const NumberInput: FC<NumberInputProps> = ({number, onChangeNumber, className, .
             setText(number?.toString() ?? "");
     }, [text, number]);
 
-    return <input {...props} className={classNames(className)} value={text}
-                  onChange={event => handelTextChange(event.target.value)} type={"number"}/>;
+    return <input {...props} value={text} onChange={event => handelTextChange(event.target.value)} type={"number"}
+                  className={classNames("border border-slate-800 rounded-md p-2 disabled:bg-gray-300 disabled:text-rose-600", className)}
+    />;
 };
 
 export default NumberInput;
