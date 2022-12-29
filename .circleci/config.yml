@@ -9,12 +9,15 @@ jobs:
       - checkout
       - run:
           command: |
-            npm install
-            npx rome check ./src
-            npx rome lint ./src
+            pnpm install
+            pnpm rome check ./src
+            pnpm rome format ./src
 
 workflows:
   version: 2
   rome: 
     jobs:
-      - check
+      - check:
+          pre-steps:
+            - run:
+                command: curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /bin/pnpm; chmod +x /bin/pnpm;
