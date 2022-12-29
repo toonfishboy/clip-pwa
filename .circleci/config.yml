@@ -4,6 +4,7 @@ jobs:
   check:
     docker:
       - image: node:18
+    working_directory: ~/clip-pwa
     steps:
       - checkout
       - run:
