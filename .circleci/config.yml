@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run:
           command: |
+            npm install
             npx rome check ./src
             npx rome lint ./src
 
@@ -16,7 +17,4 @@ workflows:
   version: 2
   rome: 
     jobs:
-      - check:
-         pre-steps:
-           - run:
-               command: npm install
+      - check
