@@ -1,5 +1,5 @@
-import {FC} from "react";
-import {createHashHistory, createReactRouter, createRouteConfig, RouterProvider} from "@tanstack/react-router";
+import { FC } from "react";
+import { createHashHistory, createReactRouter, createRouteConfig, RouterProvider } from "@tanstack/react-router";
 import Home from "./Home";
 import ContainerCalculator from "./Calculator/ContainerCalculator";
 import PipeCableCalculator from "./Calculator/PipeCableCalculator";
@@ -7,28 +7,26 @@ import PipeCableCalculator from "./Calculator/PipeCableCalculator";
 const rootRoute = createRouteConfig();
 
 const indexRoute = rootRoute.createRoute({
-    path: "/",
-    component: Home
+	path: "/",
+	component: Home,
 });
 
 const containerRoute = rootRoute.createRoute({
-    path: "/container",
-    component: ContainerCalculator
+	path: "/container",
+	component: ContainerCalculator,
 });
 
 const pipeCableRoute = rootRoute.createRoute({
-    path: "/pipeCable",
-    component: PipeCableCalculator
+	path: "/pipeCable",
+	component: PipeCableCalculator,
 });
 
 const routeConfig = rootRoute.addChildren([indexRoute, containerRoute, pipeCableRoute]);
 
 const hashHistory = createHashHistory();
 
-const router = createReactRouter({routeConfig, history: hashHistory});
+const router = createReactRouter({ routeConfig, history: hashHistory });
 
-const Router: FC = () => (
-    <RouterProvider router={router}/>
-);
+const Router: FC = () => <RouterProvider router={router} />;
 
 export default Router;

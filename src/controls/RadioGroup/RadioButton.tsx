@@ -17,16 +17,11 @@ const RadioButton: FC<RadioButtonProps> = ({ className, value }) => {
 
 	return (
 		<div
-			className={classNames(
-				className,
-				"w-5 h-5 rounded-full border border-black p-1",
-			)}
+			className={classNames(className, "w-5 h-5 rounded-full border border-black p-1")}
 			onClick={handleSelect}
 			onKeyDown={handleSelect}
 		>
-			{selected === value && (
-				<div className={"rounded-full w-full h-full bg-rose-700"} />
-			)}
+			{selected === value && <div className={"rounded-full w-full h-full bg-rose-700"} />}
 		</div>
 	);
 };

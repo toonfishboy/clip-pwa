@@ -11,10 +11,6 @@
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "warn"
-      },
-      "nursery":{
-        "useConst": "warn",
-        "useCamelCase": "warn"
       }
     }
   }
