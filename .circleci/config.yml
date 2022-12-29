@@ -10,7 +10,7 @@ jobs:
       - run:
           command: |
             pnpm install
-            pnpm rome check ./src
+            pnpm rome ci ./src
             pnpm rome format ./src
 
 workflows:
