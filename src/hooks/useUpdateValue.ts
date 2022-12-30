@@ -10,7 +10,10 @@ export function useUpdateValue<Type>(
 	value: Type,
 	setValue: Dispatch<SetStateAction<Type>>,
 ): [GetDocValue<Type>, SetDocValue<Type>] {
-	const getDocValue = useCallback(<Key extends keyof Type = keyof Type>(key: Key) => value[key], [value]);
+	const getDocValue = useCallback(
+		<Key extends keyof Type = keyof Type>(key: Key) => value[key],
+		[value],
+	);
 	const setDocValue = useCallback(
 		<Key extends keyof Type = keyof Type, Value extends Type[Key] = Type[Key]>(key: Key) =>
 			(value: Value) => {

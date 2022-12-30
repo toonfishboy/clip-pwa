@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { FC, useState, KeyboardEvent, useEffect, useRef } from "react";
-import { inputStyle } from "../styles/inputStyles";
 
 export type ListOption = {
 	key: string;
@@ -43,7 +42,13 @@ interface ListSelectProps {
 	className?: string;
 }
 
-const ListSelect: FC<ListSelectProps> = ({ className, options, selected, onOptionChange, onStringChange }) => {
+const ListSelect: FC<ListSelectProps> = ({
+	className,
+	options,
+	selected,
+	onOptionChange,
+	onStringChange,
+}) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +65,6 @@ const ListSelect: FC<ListSelectProps> = ({ className, options, selected, onOptio
 	const handleSelect = (option: ListOption | string) => {
 		if (isListOption(option)) onOptionChange?.(option);
 		onStringChange?.(displayOption(option));
-		setIsOpen(false);
 	};
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -70,7 +74,7 @@ const ListSelect: FC<ListSelectProps> = ({ className, options, selected, onOptio
 	return (
 		<div ref={containerRef} className="relative">
 			<button
-				className={classNames(inputStyle, "w-full text-left", className)}
+				className={classNames("input-primary w-full text-left", className)}
 				onClick={() => setIsOpen(!isOpen)}
 				onKeyDown={(event) => handleKeyDown(event)}
 			>

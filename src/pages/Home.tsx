@@ -12,7 +12,6 @@ import {
 	MdSettings,
 } from "react-icons/all";
 import { Link } from "@tanstack/react-router";
-import * as React from "react";
 import classNames from "classnames";
 
 interface IconLinkProps extends PropsWithChildren {
@@ -26,7 +25,7 @@ const IconLink: FC<IconLinkProps> = ({ to, title, className, children }) => (
 		to={to}
 		className={classNames(
 			className,
-			"grow basis-[300px] my-2 w-full bg-rose-600 p-4 rounded-md flex flex-col items-center gap-2",
+			"grow basis-[350px] my-2 w-full bg-rose-600 p-4 rounded-md flex flex-col items-center gap-2",
 		)}
 		params={{}}
 		search={{}}

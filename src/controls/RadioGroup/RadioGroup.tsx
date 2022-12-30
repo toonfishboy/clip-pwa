@@ -10,7 +10,9 @@ const RadioContext = createContext<RadioContextProps | undefined>(undefined);
 interface RadioGroupProps extends RadioContextProps, PropsWithChildren {}
 
 const RadioGroup: FC<RadioGroupProps> = ({ selected, onSelectChange, children }) => {
-	return <RadioContext.Provider value={{ selected, onSelectChange }}>{children}</RadioContext.Provider>;
+	return (
+		<RadioContext.Provider value={{ selected, onSelectChange }}>{children}</RadioContext.Provider>
+	);
 };
 
 export default RadioGroup;

@@ -2,9 +2,22 @@ import { FC } from "react";
 import LabelWrapper from "./LabelWrapper";
 import RadioButton from "./RadioGroup/RadioButton";
 import LabelText from "./LabelText";
-import NumberInput from "./NumberInput";
+import NumberInput from "./Inputs/NumberInput";
+import HelperText from "./Layout/HelperText";
 
-interface LabelRadioInputProps {
+interface RadioHeaderProps {
+	label: string;
+	radioValue: string;
+}
+
+export const RadioHeader: FC<RadioHeaderProps> = ({ radioValue, label }) => (
+	<div className={"flex gap-1 items-center"}>
+		<RadioButton value={radioValue} />
+		<LabelText>{label}</LabelText>
+	</div>
+);
+
+interface LabelRadioInputProps extends RadioHeaderProps {
 	number: number | undefined;
 	onNumberChange: (number: number | undefined) => void;
 	selected: string;
@@ -21,16 +34,13 @@ const LabelRadioInput: FC<LabelRadioInputProps> = ({
 	label,
 	radioValue,
 }) => (
-	<LabelWrapper
-		header={
-			<div className={"flex gap-1 items-center"}>
-				<RadioButton value={radioValue} />
-				<LabelText>{label}</LabelText>
-			</div>
-		}
-	>
-		<NumberInput number={number} disabled={selected === radioValue} onChangeNumber={onNumberChange} />
-		{errorText && <div className={"text-rose-600"}>{errorText}</div>}
+	<LabelWrapper header={<RadioHeader label={label} radioValue={radioValue} />}>
+		<NumberInput
+			number={number}
+			disabled={selected === radioValue}
+			onNumberChange={onNumberChange}
+		/>
+		{errorText && <HelperText type="error">{errorText}</HelperText>}
 	</LabelWrapper>
 );
 

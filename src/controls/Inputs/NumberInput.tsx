@@ -1,41 +1,43 @@
 import { AllHTMLAttributes, FC, useEffect, useState } from "react";
-import classNames from "classnames";
-import { inputStyle } from "../styles/inputStyles";
+import Input from "./Input";
 
-export interface NumberInputProps extends Omit<AllHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
+export interface NumberInputProps
+	extends Omit<AllHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
 	number: number | undefined;
-	onChangeNumber: (number: number | undefined) => void;
+	onNumberChange: (number: number | undefined) => void;
 }
 
-const NumberInput: FC<NumberInputProps> = ({ number, onChangeNumber, className, ...props }) => {
+const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props }) => {
 	const [text, setText] = useState<string>("");
 
 	const handelTextChange = (text: string) => {
 		if (text.length === 0) {
 			setText("");
-			onChangeNumber(undefined);
+			onNumberChange(undefined);
 			return;
 		}
 		const regex = new RegExp(/^[0-9]+\.?[0-9]*$/);
 		const result = text.match(regex);
 		if (result === null) return;
 		const number = parseFloat(text);
-		if (!Number.isNaN(number)) onChangeNumber(number);
+		if (!Number.isNaN(number)) onNumberChange(number);
 		setText(text);
 	};
 
 	useEffect(() => {
-		if ((text.length === 0 && number !== undefined) || (text.length !== 0 && parseFloat(text) !== number))
+		if (
+			(text.length === 0 && number !== undefined) ||
+			(text.length !== 0 && parseFloat(text) !== number)
+		)
 			setText(number?.toString() ?? "");
 	}, [text, number]);
 
 	return (
-		<input
+		<Input
 			{...props}
 			value={text}
 			onChange={(event) => handelTextChange(event.target.value)}
 			type={"number"}
-			className={classNames(inputStyle, className)}
 		/>
 	);
 };

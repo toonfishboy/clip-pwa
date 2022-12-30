@@ -1,8 +1,14 @@
 import { FC } from "react";
-import { createHashHistory, createReactRouter, createRouteConfig, RouterProvider } from "@tanstack/react-router";
+import {
+	createHashHistory,
+	createReactRouter,
+	createRouteConfig,
+	RouterProvider,
+} from "@tanstack/react-router";
 import Home from "./Home";
 import ContainerCalculator from "./Calculator/ContainerCalculator";
 import PipeCableCalculator from "./Calculator/PipeCableCalculator";
+import LeakageCalculator from "./Calculator/LeakageCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -21,7 +27,17 @@ const pipeCableRoute = rootRoute.createRoute({
 	component: PipeCableCalculator,
 });
 
-const routeConfig = rootRoute.addChildren([indexRoute, containerRoute, pipeCableRoute]);
+const leakageRoute = rootRoute.createRoute({
+	path: "/leakage",
+	component: LeakageCalculator,
+});
+
+const routeConfig = rootRoute.addChildren([
+	indexRoute,
+	containerRoute,
+	pipeCableRoute,
+	leakageRoute,
+]);
 
 const hashHistory = createHashHistory();
 

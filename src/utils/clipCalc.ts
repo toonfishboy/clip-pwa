@@ -118,7 +118,10 @@ export function leakageCalculator(
 	switch (toCalc) {
 		case "leakageCurrent":
 			const vv =
-				(((Math.PI * Math.pow(hole / 1000, 2)) / 4) * psi * Math.pow(2 * pressureP1 * 100000 * density, 0.5)) / density;
+				(((Math.PI * Math.pow(hole / 1000, 2)) / 4) *
+					psi *
+					Math.pow(2 * pressureP1 * 100000 * density, 0.5)) /
+				density;
 			const maximal = vv * 60 * 1000;
 			return [round(maximal, 2), round(maximal * 0.59, 2)];
 		case "hole":
@@ -160,7 +163,9 @@ export function containerCalculator(
 			);
 		case "engineTolerance":
 			return round(
-				(deliveredAmount * 60 * (necessaryAmount / deliveredAmount - Math.pow(necessaryAmount / deliveredAmount, 2))) /
+				(deliveredAmount *
+					60 *
+					(necessaryAmount / deliveredAmount - Math.pow(necessaryAmount / deliveredAmount, 2))) /
 					(volume * (offPressure - onPressure)),
 				2,
 			);
@@ -199,7 +204,8 @@ export function waterAmountCalculator(
 	let saturation = 0;
 	if (!entry) {
 		if (airTemp <= table[0].temp) saturation = table[0].saturation;
-		else if (airTemp >= table[table.length - 1].temp) saturation = table[table.length - 1].saturation;
+		else if (airTemp >= table[table.length - 1].temp)
+			saturation = table[table.length - 1].saturation;
 	} else saturation = entry.saturation;
 	return (saturation * (humidity / 100) * airDelivery * 60) / (pressure * 1000);
 }

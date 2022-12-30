@@ -1,12 +1,12 @@
 import { FC, useMemo, useState } from "react";
-import NumberInput from "../../controls/NumberInput";
+import NumberInput from "../../controls/Inputs/NumberInput";
 import { containerCalculator, SelectedContainerValue } from "../../utils/clipCalc";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
 import LabelWrapper from "../../controls/LabelWrapper";
 import RadioGroup from "../../controls/RadioGroup/RadioGroup";
 import { checkNaN, hasRequiredValues } from "../../utils/helper";
-import Header from "../../controls/Header";
-import Button from "../../controls/Button";
+import Header from "../../controls/Layout/Header";
+import Button from "../../controls/Layout/Button";
 import LabelRadioInput from "../../controls/LabelRadioInput";
 
 type ContainerValues = {
@@ -30,7 +30,10 @@ const defaultContainerValues: ContainerValues = {
 const ContainerCalculator: FC = () => {
 	const [containerValues, setContainerValues] = useState<ContainerValues>(defaultContainerValues);
 	const [selected, setSelected] = useState<SelectedContainerValue>("volume");
-	const [getContainerValues, updateContainerValues] = useUpdateValue(containerValues, setContainerValues);
+	const [getContainerValues, updateContainerValues] = useUpdateValue(
+		containerValues,
+		setContainerValues,
+	);
 	const resetValues = () => setContainerValues(defaultContainerValues);
 
 	const result = useMemo(() => {
@@ -66,25 +69,31 @@ const ContainerCalculator: FC = () => {
 				<LabelWrapper label={"Liefermenge des Kompressors [m³/min]:"}>
 					<NumberInput
 						number={getContainerValues("deliveredAmount")}
-						onChangeNumber={updateContainerValues("deliveredAmount")}
+						onNumberChange={updateContainerValues("deliveredAmount")}
 					/>
 				</LabelWrapper>
 				<LabelWrapper label={"Benötigte Liefermenge [m³/min]:"}>
 					<NumberInput
 						number={getContainerValues("necessaryAmount")}
-						onChangeNumber={updateContainerValues("necessaryAmount")}
+						onNumberChange={updateContainerValues("necessaryAmount")}
 					/>
 				</LabelWrapper>
 				<LabelWrapper label={"Ausschaltdruck des Kompressors [barÜ]:"}>
 					<NumberInput
 						number={getContainerValues("offPressure")}
-						onChangeNumber={updateContainerValues("offPressure")}
+						onNumberChange={updateContainerValues("offPressure")}
 					/>
 				</LabelWrapper>
 				<LabelWrapper label={"Einschaltdruck des Kompressors [barÜ]:"}>
-					<NumberInput number={getContainerValues("onPressure")} onChangeNumber={updateContainerValues("onPressure")} />
+					<NumberInput
+						number={getContainerValues("onPressure")}
+						onNumberChange={updateContainerValues("onPressure")}
+					/>
 				</LabelWrapper>
-				<RadioGroup selected={selected} onSelectChange={(selected) => setSelected(selected as SelectedContainerValue)}>
+				<RadioGroup
+					selected={selected}
+					onSelectChange={(selected) => setSelected(selected as SelectedContainerValue)}
+				>
 					<LabelRadioInput
 						number={getCalcValue("engineTolerance")}
 						selected={selected}

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { MdArrowBack } from "react-icons/all";
-import { iconClassName } from "../pages/Home";
+import { iconClassName } from "../../pages/Home";
 import { Link } from "@tanstack/react-router";
 
 interface HeaderProps {
