@@ -12,6 +12,7 @@ import LeakageCalculator from "./Calculator/LeakageCalculator";
 import ContainerLeakageCalculator from "./Calculator/ContainerLeakageCalculator";
 import Settings from "./Misc/Settings";
 import AirCurrentCalculator from "./Calculator/AirCurrentCalculator";
+import PressureWorkCalculator from "./Calculator/PressureWorkCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -45,6 +46,11 @@ const containerLeakageRoute = rootRoute.createRoute({
 	component: ContainerLeakageCalculator,
 });
 
+const pressureWorkRoute = rootRoute.createRoute({
+	path: "/pressureWork",
+	component: PressureWorkCalculator,
+});
+
 const settingsRoute = rootRoute.createRoute({
 	path: "/settings",
 	component: Settings,
@@ -57,6 +63,7 @@ const routeConfig = rootRoute.addChildren([
 	pipeCableRoute,
 	leakageRoute,
 	containerLeakageRoute,
+	pressureWorkRoute,
 	settingsRoute,
 ]);
 

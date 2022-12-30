@@ -182,13 +182,17 @@ export function containerLeakageCalculator(
 	return round((volume * (onPressure - offPressure)) / measureTime);
 }
 
-export function additionalWorkCalculator(pressureP1: number, temperature: string) {
+export function pressureWorkCalculator(pressureP1: number, temperature: number) {
 	const pressureP2 = 1;
 	const T2 = 293;
 	const KAPPA = 1.4;
-	const t0 = 273 + parseFloat(temperature);
+	const t0 = 273 + temperature;
 	const kappa2 = 1 / (KAPPA / (KAPPA - 1));
 	const t1 = T2 * Math.pow(pressureP1 / pressureP2, kappa2);
+	/**
+	 * Math.round((result - 1) * Math.pow(10, 3)) / 10;
+	 * Calculation for app and other website
+	 */
 	return round(1 / ((1 - t0 / t1) / (1 - T2 / t1)));
 }
 

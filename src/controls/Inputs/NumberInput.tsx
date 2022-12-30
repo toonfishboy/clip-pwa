@@ -5,9 +5,11 @@ export interface NumberInputProps
 	extends Omit<AllHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
 	number: number | undefined;
 	onNumberChange?: (number: number | undefined) => void;
+	max?: number;
+	min?: number;
 }
 
-const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props }) => {
+const NumberInput: FC<NumberInputProps> = ({ max, min, number, onNumberChange, ...props }) => {
 	const [text, setText] = useState<string>("");
 
 	const handelTextChange = (text: string) => {
@@ -19,9 +21,20 @@ const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props })
 		const regex = new RegExp(/^[0-9]+\.?[0-9]*$/);
 		const result = text.match(regex);
 		if (result === null) return;
-		const number = parseFloat(text);
-		if (!Number.isNaN(number)) onNumberChange?.(number);
-		setText(text);
+		let isChanged = false;
+		let number = parseFloat(text);
+		if (!Number.isNaN(number)) {
+			if (max !== undefined && number > max) {
+				number = max;
+				isChanged = true;
+			}
+			if (min !== undefined && number < min) {
+				number = min;
+				isChanged = true;
+			}
+			onNumberChange?.(number);
+		}
+		setText(isChanged ? number.toString() : text);
 	};
 
 	useEffect(() => {
@@ -31,6 +44,9 @@ const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props })
 		)
 			setText(number?.toString() ?? "");
 	}, [text, number]);
+
+	if (max !== undefined && min !== undefined && max < min)
+		throw new Error("min value can't be higher than max value");
 
 	return (
 		<Input
