@@ -3,7 +3,11 @@ import LabelWrapper from "../../../controls/LabelWrapper";
 import { round } from "../../../utils/helper";
 
 export type UnitType<Type, Key extends keyof Type = keyof Type> = {
-	[Property in Key]: { label: string; multiplier: number; value: number | undefined };
+	[Property in Key]: {
+		label: string;
+		modificator: number | ((value: number, srcKey: Key) => number);
+		value: number | undefined;
+	};
 };
 
 function getOptions<Type>(type: UnitType<Type>) {
@@ -28,16 +32,22 @@ const UnitDisplay = <Type,>({ unitValues, setUnitValues }: UnitDisplayProps<Type
 			setUnitValues({ ...unitValues, [key]: { ...unitValues[key], value } });
 			return;
 		}
-		const multiplier = unitValues[key].multiplier;
+
 		const getValue = (fieldKey: keyof Type) => {
-			return round((value / multiplier) * unitValues[fieldKey].multiplier);
+			const modificator = unitValues[key].modificator;
+			if (typeof modificator === "function") return round(modificator(value, fieldKey));
+			const fieldModificator = unitValues[fieldKey].modificator;
+			if (typeof fieldModificator === "function") return value;
+			return round((value / modificator) * fieldModificator);
 		};
 
 		const updatedValue: UnitType<Type> = { ...unitValues };
 		getTypeKeys(unitValues).forEach((currentKey) => {
 			const currentValue = unitValues[currentKey];
-			updatedValue[currentKey] =
-				key !== currentKey ? { ...currentValue, value: getValue(currentKey) } : currentValue;
+			updatedValue[currentKey] = {
+				...currentValue,
+				value: key !== currentKey ? getValue(currentKey) : value,
+			};
 		});
 		setUnitValues(updatedValue);
 	};

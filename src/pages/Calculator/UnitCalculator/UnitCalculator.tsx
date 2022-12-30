@@ -22,9 +22,9 @@ type PressureValues = {
 };
 
 const pressureType: UnitType<PressureValues> = {
-	bar: { label: "Bar", multiplier: 1, value: undefined },
-	kpa: { label: "Kpa", multiplier: 0.01, value: undefined },
-	psi: { label: "Psi", multiplier: 0.145, value: undefined },
+	kpa: { label: "Kpa", modificator: 1, value: undefined },
+	bar: { label: "Bar", modificator: 0.01, value: undefined },
+	psi: { label: "Psi", modificator: 0.145, value: undefined },
 };
 
 type PowerValues = {
@@ -33,8 +33,8 @@ type PowerValues = {
 };
 
 const powerType: UnitType<PowerValues> = {
-	kw: { label: "KW", multiplier: 1, value: undefined },
-	ps: { label: "PS", multiplier: 1.35962, value: undefined },
+	kw: { label: "KW", modificator: 1, value: undefined },
+	ps: { label: "PS", modificator: 1.35962, value: undefined },
 };
 
 type VolumeValues = {
@@ -43,8 +43,8 @@ type VolumeValues = {
 };
 
 const volumeType: UnitType<VolumeValues> = {
-	meter: { label: "m³", multiplier: 1, value: undefined },
-	liter: { label: "l", multiplier: 1000, value: undefined },
+	meter: { label: "m³", modificator: 1, value: undefined },
+	liter: { label: "l", modificator: 1000, value: undefined },
 };
 
 type TemperaturValues = {
@@ -54,9 +54,33 @@ type TemperaturValues = {
 };
 
 const temperatureType: UnitType<TemperaturValues> = {
-	celsius: { label: "Celsius", multiplier: 1, value: undefined },
-	kelvin: { label: "Kelvin", multiplier: 273.15, value: undefined },
-	fahrenheit: { label: "Fahrenheit", multiplier: 9 / 5 + 32, value: undefined },
+	celsius: {
+		label: "Celsius",
+		modificator: (value, srcKey) => {
+			if (srcKey === "fahrenheit") return value * (9 / 5) + 32;
+			if (srcKey === "kelvin") return value - 273.15;
+			return value;
+		},
+		value: undefined,
+	},
+	kelvin: {
+		label: "Kelvin",
+		modificator: (value, srcKey) => {
+			if (srcKey === "fahrenheit") return (value - 273.15) * (9 / 5) + 32;
+			if (srcKey === "celsius") return value - 273.15;
+			return value;
+		},
+		value: undefined,
+	},
+	fahrenheit: {
+		label: "Fahrenheit",
+		modificator: (value, srcKey) => {
+			if (srcKey === "celsius") return (value - 32) * (5 / 9);
+			if (srcKey === "kelvin") return (value - 32) * (5 / 9) + 273.15;
+			return value;
+		},
+		value: undefined,
+	},
 };
 
 type VolumeCurrentValues = {
@@ -68,11 +92,11 @@ type VolumeCurrentValues = {
 };
 
 const volumeCurrentType: UnitType<VolumeCurrentValues> = {
-	meterSecond: { label: "m³/s", multiplier: 1, value: undefined },
-	meterMinute: { label: "m³/min", multiplier: 60, value: undefined },
-	meterHour: { label: "m³/h", multiplier: 3600, value: undefined },
-	literSecond: { label: "l/s", multiplier: 1000, value: undefined },
-	literMinute: { label: "l/min", multiplier: 60000, value: undefined },
+	meterSecond: { label: "m³/s", modificator: 1, value: undefined },
+	meterMinute: { label: "m³/min", modificator: 60, value: undefined },
+	meterHour: { label: "m³/h", modificator: 3600, value: undefined },
+	literSecond: { label: "l/s", modificator: 1000, value: undefined },
+	literMinute: { label: "l/min", modificator: 60000, value: undefined },
 };
 
 const UnitCalculator: FC = () => {
