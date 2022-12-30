@@ -14,6 +14,7 @@ import Settings from "./Misc/Settings";
 import AirCurrentCalculator from "./Calculator/AirCurrentCalculator";
 import PressureWorkCalculator from "./Calculator/PressureWorkCalculator";
 import CondensateCalculator from "./Calculator/CondensateCalculator";
+import UnitCalculator from "./Calculator/UnitCalculator/UnitCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -62,6 +63,11 @@ const condensateRoute = rootRoute.createRoute({
 	component: CondensateCalculator,
 });
 
+const unitRoute = rootRoute.createRoute({
+	path: "/units",
+	component: UnitCalculator,
+});
+
 const routeConfig = rootRoute.addChildren([
 	indexRoute,
 	airCurrentRoute,
@@ -72,6 +78,7 @@ const routeConfig = rootRoute.addChildren([
 	pressureWorkRoute,
 	settingsRoute,
 	condensateRoute,
+	unitRoute,
 ]);
 
 const hashHistory = createHashHistory();

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
 
-export type ListOption<T = undefined> = {
+export type ListOption<T = unknown> = {
 	key: string;
 	label: string;
 	value?: T;
