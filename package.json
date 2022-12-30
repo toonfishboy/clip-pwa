@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "commit": "cz",
+    "commit": "git add * && cz",
     "test": "vitest",
     "test:ci": "vitest run",
     "coverage": "vitest run --coverage",

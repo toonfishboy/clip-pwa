@@ -2,9 +2,9 @@ import classNames from "classnames";
 import { FC, useState, KeyboardEvent, useEffect, useRef } from "react";
 import { inputStyle } from "../styles/inputStyles";
 
-type ListOption = {
+export type ListOption = {
 	key: string;
-	title: string;
+	label: string;
 };
 
 /**
@@ -22,7 +22,7 @@ function isListOption(value: ListOption | string): value is ListOption {
  * @returns
  */
 function displayOption(value: ListOption | string): string {
-	return isListOption(value) ? value.title : value;
+	return isListOption(value) ? value.label : value;
 }
 
 /**
