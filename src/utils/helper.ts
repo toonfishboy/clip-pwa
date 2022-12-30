@@ -47,7 +47,7 @@ export function checkNaN(value: number | undefined): number | undefined {
  */
 export function hasRequiredValues<Type extends object, Key extends keyof Type = keyof Type>(
 	value: Type,
-	resultKey: Key,
+	resultKey?: Key,
 ) {
 	return !Object.entries(value).some(([k, v]) => k !== resultKey && v === undefined);
 }

@@ -9,6 +9,7 @@ import Home from "./Home";
 import ContainerCalculator from "./Calculator/ContainerCalculator";
 import PipeCableCalculator from "./Calculator/PipeCableCalculator";
 import LeakageCalculator from "./Calculator/LeakageCalculator";
+import ContainerLeakageCalculator from "./Calculator/ContainerLeakageCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -32,11 +33,17 @@ const leakageRoute = rootRoute.createRoute({
 	component: LeakageCalculator,
 });
 
+const containerLeakageRoute = rootRoute.createRoute({
+	path: "/containerLeakage",
+	component: ContainerLeakageCalculator,
+});
+
 const routeConfig = rootRoute.addChildren([
 	indexRoute,
 	containerRoute,
 	pipeCableRoute,
 	leakageRoute,
+	containerLeakageRoute,
 ]);
 
 const hashHistory = createHashHistory();

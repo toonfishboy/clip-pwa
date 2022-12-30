@@ -4,7 +4,7 @@ import Input from "./Input";
 export interface NumberInputProps
 	extends Omit<AllHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
 	number: number | undefined;
-	onNumberChange: (number: number | undefined) => void;
+	onNumberChange?: (number: number | undefined) => void;
 }
 
 const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props }) => {
@@ -13,14 +13,14 @@ const NumberInput: FC<NumberInputProps> = ({ number, onNumberChange, ...props })
 	const handelTextChange = (text: string) => {
 		if (text.length === 0) {
 			setText("");
-			onNumberChange(undefined);
+			onNumberChange?.(undefined);
 			return;
 		}
 		const regex = new RegExp(/^[0-9]+\.?[0-9]*$/);
 		const result = text.match(regex);
 		if (result === null) return;
 		const number = parseFloat(text);
-		if (!Number.isNaN(number)) onNumberChange(number);
+		if (!Number.isNaN(number)) onNumberChange?.(number);
 		setText(text);
 	};
 
