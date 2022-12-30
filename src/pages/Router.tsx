@@ -10,6 +10,7 @@ import ContainerCalculator from "./Calculator/ContainerCalculator";
 import PipeCableCalculator from "./Calculator/PipeCableCalculator";
 import LeakageCalculator from "./Calculator/LeakageCalculator";
 import ContainerLeakageCalculator from "./Calculator/ContainerLeakageCalculator";
+import Settings from "./Misc/Settings";
 
 const rootRoute = createRouteConfig();
 
@@ -38,12 +39,18 @@ const containerLeakageRoute = rootRoute.createRoute({
 	component: ContainerLeakageCalculator,
 });
 
+const settingsRoute = rootRoute.createRoute({
+	path: "/settings",
+	component: Settings,
+});
+
 const routeConfig = rootRoute.addChildren([
 	indexRoute,
 	containerRoute,
 	pipeCableRoute,
 	leakageRoute,
 	containerLeakageRoute,
+	settingsRoute,
 ]);
 
 const hashHistory = createHashHistory();

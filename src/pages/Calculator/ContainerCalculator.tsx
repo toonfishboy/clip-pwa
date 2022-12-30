@@ -8,6 +8,7 @@ import { checkNaN, hasRequiredValues } from "../../utils/helper";
 import Header from "../../controls/Layout/Header";
 import Button from "../../controls/Layout/Button";
 import LabelRadioInput from "../../controls/LabelRadioInput";
+import Container from "../../controls/Layout/Container";
 
 type ContainerValues = {
 	deliveredAmount: number | undefined;
@@ -63,9 +64,9 @@ const ContainerCalculator: FC = () => {
 	};
 
 	return (
-		<div className={"flex flex-col"}>
+		<Container>
 			<Header title={"Behälter Leckage"} />
-			<div className={"flex flex-col m-2 gap-2"}>
+			<Container className={"m-2 gap-2"}>
 				<LabelWrapper label={"Liefermenge des Kompressors [m³/min]:"}>
 					<NumberInput
 						number={getContainerValues("deliveredAmount")}
@@ -112,8 +113,8 @@ const ContainerCalculator: FC = () => {
 				<div className={"flex"}>
 					<Button onClick={resetValues}>Zurücksetzen</Button>
 				</div>
-			</div>
-		</div>
+			</Container>
+		</Container>
 	);
 };
 

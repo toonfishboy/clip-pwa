@@ -12,6 +12,7 @@ import { leakageCalculator, SelectedLeakageValue } from "../../utils/clipCalc";
 import { hasRequiredValues } from "../../utils/helper";
 import LabelText from "../../controls/LabelText";
 import Input from "../../controls/Inputs/Input";
+import Container from "../../controls/Layout/Container";
 
 const mediumOptions: ListOption[] = [
 	{ key: "air", label: "Luft" },
@@ -89,14 +90,14 @@ const LeakageCalculator: FC = () => {
 	const isP2Lower = (leakageValues.pressureP1 ?? 0) > (leakageValues.pressureP2 ?? 0);
 
 	return (
-		<div className={"flex flex-col"}>
+		<Container>
 			<Header title={"Leckage"} />
-			<div className={"flex flex-col m-2 gap-2"}>
+			<Container className={"m-2 gap-2"}>
 				<LabelWrapper label="Medium">
 					<ListSelect
 						options={mediumOptions}
 						selected={medium}
-						onOptionChange={option => selectMediumChange(option)}
+						onOptionChange={(option) => selectMediumChange(option)}
 					/>
 				</LabelWrapper>
 				<LabelWrapper label="Druck p1 [bar abs]:">
@@ -162,8 +163,8 @@ const LeakageCalculator: FC = () => {
 				<div className={"flex"}>
 					<Button onClick={resetValues}>Zurücksetzen</Button>
 				</div>
-			</div>
-		</div>
+			</Container>
+		</Container>
 	);
 };
 

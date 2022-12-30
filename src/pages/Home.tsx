@@ -42,7 +42,9 @@ const Home: FC = () => {
 			<header className={"flex justify-between w-full text-white items-center bg-rose-600"}>
 				<MdMenu className={iconClassName} />
 				<span className={"p-2 text-2xl"}>Clip GmbH Drucklufttechnik</span>
-				<MdSettings className={iconClassName} />
+				<Link to={"/settings"}>
+					<MdSettings className={iconClassName} />
+				</Link>
 			</header>
 			<section className={"gap-2 m-4 flex flex-wrap"}>
 				<IconLink to={"/pipeCable"} title={"Rohrleitung"}>

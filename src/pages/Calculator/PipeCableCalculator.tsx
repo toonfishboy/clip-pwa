@@ -8,6 +8,7 @@ import RadioGroup from "../../controls/RadioGroup/RadioGroup";
 import LabelRadioInput from "../../controls/LabelRadioInput";
 import LabelText from "../../controls/LabelText";
 import ListSelect from "../../controls/Inputs/ListSelect";
+import Container from "../../controls/Layout/Container";
 
 export type PipeValues = {
 	volume: number | undefined;
@@ -53,9 +54,9 @@ const PipeCableCalculator: FC = () => {
 	};
 
 	return (
-		<div className={"flex flex-col"}>
+		<Container>
 			<Header title={"Rohrleitung"} />
-			<div className={"flex flex-col m-2 gap-2"}>
+			<Container className={"m-2 gap-2"}>
 				<RadioGroup
 					selected={selected}
 					onSelectChange={(selected) => setSelected(selected as SelectedPipeValue)}
@@ -115,8 +116,8 @@ const PipeCableCalculator: FC = () => {
 				<div className={"flex"}>
 					<Button onClick={resetValues}>Zurücksetzen</Button>
 				</div>
-			</div>
-		</div>
+			</Container>
+		</Container>
 	);
 };
 

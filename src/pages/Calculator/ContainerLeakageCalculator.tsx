@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useRef, useState } from "react";
 import NumberInput from "../../controls/Inputs/NumberInput";
 import LabelWrapper from "../../controls/LabelWrapper";
 import Button from "../../controls/Layout/Button";
+import Container from "../../controls/Layout/Container";
 import Header from "../../controls/Layout/Header";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
 import { containerLeakageCalculator } from "../../utils/clipCalc";
@@ -35,7 +36,7 @@ const ContainerLeakageCalculator: FC = () => {
 
 	const result = useMemo(() => {
 		const { volume = 0, onPressure = 0, offPressure = 0, measureTime = 0 } = containerLeakageValues;
-        if (!hasRequiredValues(containerLeakageValues)) return;
+		if (!hasRequiredValues(containerLeakageValues)) return;
 		return containerLeakageCalculator(volume, onPressure, offPressure, measureTime);
 	}, [containerLeakageValues]);
 
@@ -62,9 +63,9 @@ const ContainerLeakageCalculator: FC = () => {
 	}, []);
 
 	return (
-		<div className={"flex flex-col"}>
+		<Container>
 			<Header title={"Behälter Leckage"} />
-			<div className={"flex flex-col m-2 gap-2"}>
+			<Container className={"m-2 gap-2"}>
 				<LabelWrapper label="Behältervolumen [l]:">
 					<NumberInput
 						number={getContainerLeakageValues("volume")}
@@ -98,11 +99,11 @@ const ContainerLeakageCalculator: FC = () => {
 				<LabelWrapper label="Leckagemenge [m3/min]:">
 					<NumberInput number={result} disabled={true} />
 				</LabelWrapper>
-			</div>
+			</Container>
 			<div className={"flex"}>
 				<Button onClick={resetValues}>Zurücksetzen</Button>
 			</div>
-		</div>
+		</Container>
 	);
 };
 
