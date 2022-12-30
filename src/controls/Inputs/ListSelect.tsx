@@ -1,9 +1,10 @@
 import classNames from "classnames";
-import { FC, useState, KeyboardEvent, useEffect, useRef } from "react";
+import { useState, KeyboardEvent, useEffect, useRef } from "react";
 
-export type ListOption = {
+export type ListOption<T = undefined> = {
 	key: string;
 	label: string;
+	value?: T;
 };
 
 /**
@@ -11,7 +12,7 @@ export type ListOption = {
  * @param value select option
  * @returns
  */
-function isListOption(value: ListOption | string): value is ListOption {
+function isListOption<T>(value: ListOption<T> | string): value is ListOption<T> {
 	return typeof value !== "string";
 }
 
@@ -20,7 +21,7 @@ function isListOption(value: ListOption | string): value is ListOption {
  * @param value select option
  * @returns
  */
-function displayOption(value: ListOption | string): string {
+function displayOption<T>(value: ListOption<T> | string): string {
 	return isListOption(value) ? value.label : value;
 }
 
@@ -29,26 +30,26 @@ function displayOption(value: ListOption | string): string {
  * @param value select option
  * @returns
  */
-function getOptionKey(value: ListOption | string): string {
+function getOptionKey<T>(value: ListOption<T> | string): string {
 	return isListOption(value) ? value.key : value;
 }
 
-interface ListSelectProps {
-	options: ListOption[] | string[];
-	selected: ListOption | string;
-	onOptionChange?: (option: ListOption) => void;
+interface ListSelectProps<T = undefined> {
+	options: ListOption<T>[] | string[];
+	selected: ListOption<T> | string;
+	onOptionChange?: (option: ListOption<T>) => void;
 	onStringChange?: (option: string) => void;
 	disabled?: boolean;
 	className?: string;
 }
 
-const ListSelect: FC<ListSelectProps> = ({
+const ListSelect = <T,>({
 	className,
 	options,
 	selected,
 	onOptionChange,
 	onStringChange,
-}) => {
+}: ListSelectProps<T>) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +63,7 @@ const ListSelect: FC<ListSelectProps> = ({
 		return () => window.removeEventListener("click", handleRefClick);
 	}, [isOpen]);
 
-	const handleSelect = (option: ListOption | string) => {
+	const handleSelect = (option: ListOption<T> | string) => {
 		if (isListOption(option)) onOptionChange?.(option);
 		onStringChange?.(displayOption(option));
 	};
@@ -81,7 +82,7 @@ const ListSelect: FC<ListSelectProps> = ({
 				{displayOption(selected)}
 			</button>
 			{isOpen && (
-				<div className="absolute top-full left-0 mt-1 border border-stone-800 rounded-md bg-white  w-full">
+				<div className="overflow-auto max-h-[20rem] z-10 absolute top-full left-0 mt-1 border border-stone-800 rounded-md bg-white  w-full">
 					{options.length === 0 ? (
 						<span>Keine option verfügbar</span>
 					) : (

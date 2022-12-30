@@ -51,3 +51,14 @@ export function hasRequiredValues<Type extends object, Key extends keyof Type = 
 ) {
 	return !Object.entries(value).some(([k, v]) => k !== resultKey && v === undefined);
 }
+
+/**
+ * Rounds the given value to the given length
+ * @param result
+ * @param length
+ * @returns
+ */
+export function round(value: number, length: number = 2) {
+	const moveLength = Math.pow(10, length);
+	return Math.round(value * moveLength) / moveLength;
+}

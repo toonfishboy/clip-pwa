@@ -5,6 +5,7 @@ import {
 	BiWater,
 	CgCompressRight,
 	CgTimer,
+	FaFan,
 	GiHeatHaze,
 	GiPipes,
 	GiTeePipe,
@@ -52,6 +53,9 @@ const Home: FC = () => {
 				</IconLink>
 				<IconLink to={"/leakage"} title={"Leckage"}>
 					<GiTeePipe className={"w-10 h-10"} />
+				</IconLink>
+				<IconLink to={"/airCurrent"} title={"Lüftungstechnik"}>
+					<FaFan className={"w-10 h-10"} />
 				</IconLink>
 				<IconLink to={"/container"} title={"Druckluft Behälter"}>
 					<BiCylinder className={"w-10 h-10"} />

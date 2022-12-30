@@ -1,4 +1,5 @@
 import pressureTable from "../assets/pressureSaturationTable.json";
+import { round } from "./helper";
 
 export type SelectedPipeValue = "volume" | "length" | "pressureLoss" | "netPressure" | "diameter";
 
@@ -55,15 +56,20 @@ export function pipeCalculator(
 			result = 0;
 	}
 	const pipeArea = Math.pow((calcDiameter * 1000) / 2, 2) * Math.PI;
-	const pipeVolume = round((pipeArea / 10000) * (calcLength * 10), 2);
-	const airSpeed = round(calcVolume / (pipeArea / 1000000) / calcNetPressure, 2);
-	result = round(result, 2);
+	const pipeVolume = round((pipeArea / 10000) * (calcLength * 10));
+	const airSpeed = round(calcVolume / (pipeArea / 1000000) / calcNetPressure);
+	result = round(result);
 	return { result, pipeVolume, airSpeed };
 }
 
-export type FlowValue = "volume" | "velocity" | "area";
+export type SelectedAirCurrentValue = "volume" | "velocity" | "area";
 
-export function flowCalculator(volume: number, velocity: number, area: number, toCalc: FlowValue) {
+export function airCurrentCalculator(
+	volume: number,
+	velocity: number,
+	area: number,
+	toCalc: SelectedAirCurrentValue,
+) {
 	let calcVolume = volume / 3600;
 	let calcVelocity = velocity;
 	let calcArea = area;
@@ -84,7 +90,7 @@ export function flowCalculator(volume: number, velocity: number, area: number, t
 		default:
 			result = 0;
 	}
-	result = round(result, 2);
+	result = round(result);
 	return result;
 }
 
@@ -123,18 +129,13 @@ export function leakageCalculator(
 					Math.pow(2 * pressureP1 * 100000 * density, 0.5)) /
 				density;
 			const maximal = vv * 60 * 1000;
-			return [round(maximal, 2), round(maximal * 0.59, 2)];
+			return [round(maximal), round(maximal * 0.59)];
 		case "hole":
 			const calcLeakage = leakageCurrent / 60000;
 			const area = (calcLeakage * density) / psi / Math.pow(2 * pressureP1 * 100000 * density, 0.5);
 			const minimal = Math.pow(4 * (area / Math.PI), 0.5) * 1000;
-			return [round(minimal / Math.pow(0.59, 0.5), 2), round(minimal, 2)];
+			return [round(minimal / Math.pow(0.59, 0.5)), round(minimal)];
 	}
-}
-
-export function round(result: number, length: number = 3) {
-	const moveLength = Math.pow(10, length);
-	return Math.round(result * moveLength) / moveLength;
 }
 
 export type SelectedContainerValue = "volume" | "engineTolerance";
@@ -158,7 +159,6 @@ export function containerCalculator(
 						60 *
 						(necessaryAmount / deliveredAmount - Math.pow(necessaryAmount / deliveredAmount, 2))) /
 						(engineTolerance * (offPressure - onPressure)),
-					2,
 				)
 			);
 		case "engineTolerance":
@@ -167,7 +167,6 @@ export function containerCalculator(
 					60 *
 					(necessaryAmount / deliveredAmount - Math.pow(necessaryAmount / deliveredAmount, 2))) /
 					(volume * (offPressure - onPressure)),
-				2,
 			);
 	}
 }
@@ -180,7 +179,7 @@ export function containerLeakageCalculator(
 ) {
 	volume = volume / 1000;
 	measureTime = measureTime / 60;
-	return round((volume * (onPressure - offPressure)) / measureTime, 2);
+	return round((volume * (onPressure - offPressure)) / measureTime);
 }
 
 export function additionalWorkCalculator(pressureP1: number, temperature: string) {
@@ -190,7 +189,7 @@ export function additionalWorkCalculator(pressureP1: number, temperature: string
 	const t0 = 273 + parseFloat(temperature);
 	const kappa2 = 1 / (KAPPA / (KAPPA - 1));
 	const t1 = T2 * Math.pow(pressureP1 / pressureP2, kappa2);
-	return 1 / ((1 - t0 / t1) / (1 - T2 / t1));
+	return round(1 / ((1 - t0 / t1) / (1 - T2 / t1)));
 }
 
 export function waterAmountCalculator(
@@ -207,5 +206,5 @@ export function waterAmountCalculator(
 		else if (airTemp >= table[table.length - 1].temp)
 			saturation = table[table.length - 1].saturation;
 	} else saturation = entry.saturation;
-	return (saturation * (humidity / 100) * airDelivery * 60) / (pressure * 1000);
+	return round((saturation * (humidity / 100) * airDelivery * 60) / (pressure * 1000));
 }
