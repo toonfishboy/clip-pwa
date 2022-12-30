@@ -212,3 +212,39 @@ export function waterAmountCalculator(
 	} else saturation = entry.saturation;
 	return round((saturation * (humidity / 100) * airDelivery * 60) / (pressure * 1000));
 }
+
+export type CondensateResultValues = {
+	waterAmount: number;
+	condensateLoss: number;
+	remainingHumidity: number;
+	coldLoss: number;
+	coldHumidity: number;
+	totalLoss: number;
+};
+
+export function condensateCalculator(
+	airTemp: number,
+	humidity: number,
+	airDelivery: number,
+	pressure: number,
+	coolTemp: number,
+	dtp: number,
+	hours: number,
+): CondensateResultValues {
+	const waterAmount = waterAmountCalculator(airTemp, humidity, airDelivery);
+	const remainingHumidity = waterAmountCalculator(coolTemp, 100, airDelivery, pressure);
+	const condensateLoss = round(waterAmount - remainingHumidity);
+	const coldHumidity = waterAmountCalculator(dtp, 100, airDelivery, pressure);
+	const coldLoss = round(remainingHumidity - coldHumidity);
+
+	const result = {
+		waterAmount: waterAmount * hours,
+		condensateLoss: condensateLoss * hours,
+		coldHumidity: coldHumidity * hours,
+		remainingHumidity: remainingHumidity * hours,
+		coldLoss: coldLoss * hours,
+	};
+	const totalLoss = waterAmount !== 0 && coldLoss !== 0 ? round(waterAmount - coldLoss) : 0;
+
+	return { ...result, totalLoss };
+}

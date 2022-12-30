@@ -13,6 +13,7 @@ import ContainerLeakageCalculator from "./Calculator/ContainerLeakageCalculator"
 import Settings from "./Misc/Settings";
 import AirCurrentCalculator from "./Calculator/AirCurrentCalculator";
 import PressureWorkCalculator from "./Calculator/PressureWorkCalculator";
+import CondensateCalculator from "./Calculator/CondensateCalculator";
 
 const rootRoute = createRouteConfig();
 
@@ -56,6 +57,11 @@ const settingsRoute = rootRoute.createRoute({
 	component: Settings,
 });
 
+const condensateRoute = rootRoute.createRoute({
+	path: "/condensate",
+	component: CondensateCalculator,
+});
+
 const routeConfig = rootRoute.addChildren([
 	indexRoute,
 	airCurrentRoute,
@@ -65,6 +71,7 @@ const routeConfig = rootRoute.addChildren([
 	containerLeakageRoute,
 	pressureWorkRoute,
 	settingsRoute,
+	condensateRoute,
 ]);
 
 const hashHistory = createHashHistory();
