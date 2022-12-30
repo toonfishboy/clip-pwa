@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "commit": "cz",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test:ci": "vitest run",
+    "coverage": "vitest run --coverage",
+    "lint": "rome check ./src",
+    "lint:ci": "rome ci ./src"
   },
   "dependencies": {
     "@tanstack/react-router": "0.0.1-beta.38",

@@ -1,47 +1,33 @@
 version: 2.1
 
 jobs:
-  setup:
-    docker:
-      - image: node:18
-    steps:
-      - run:
-         command: curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /bin/pnpm; chmod +x /bin/pnpm;
-  install:
-    docker:
-      - image: node:18
-    steps:
-      - checkout
-      - run: pnpm install
-  check:
+  lint_test_build:
     docker:
       - image: node:18
     working_directory: ~/project
     steps:
-      - run:
+       - checkout
+       - run:
+          command: curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /bin/pnpm; chmod +x /bin/pnpm;
+          name: Instal pnpm
+       - run:
+          command: pnpm install
+          name: Install packages
+       - run:
           command: |
-            pnpm rome check ./src
-            pnpm rome format ./src
-  test:
-    docker:
-      - image: node:18
-    working_directory: ~/project
-    steps:
-      - run:
+            pnpm run lint:ci
+          name: Rome check
+       - run:
           command: |
-            pnpm vitest run
+            pnpm run test:ci
+          name: Test
+       - run:
+          command: |
+            pnpm run build
+          name: Build application
 
 workflows:
   version: 2
   rome: 
     jobs:
-      - setup
-      - install:
-          requires:
-            - setup
-      - check:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
+      - lint_test_build
