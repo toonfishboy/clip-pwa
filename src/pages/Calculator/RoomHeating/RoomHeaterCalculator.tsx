@@ -2,13 +2,19 @@ import { FC, useMemo, useState } from "react";
 import ListSelect, { ListOption } from "../../../controls/Inputs/ListSelect";
 import NumberInput from "../../../controls/Inputs/NumberInput";
 import LabelWrapper from "../../../controls/LabelWrapper";
-import Button from "../../../controls/Layout/Button";
 import Container from "../../../controls/Layout/Container";
+import Footer from "../../../controls/Layout/Footer";
 import Header from "../../../controls/Layout/Header";
 import { useUpdateValue } from "../../../hooks/useUpdateValue";
 import { hasRequiredValues } from "../../../utils/helper";
 import { calcEnergyPrice, calcRoomHeating } from "./RoomHeaterCalc";
-import { EnergyPriceValues, EnergyType, RoomHeaterValues } from "./RoomHeaterTypes";
+import {
+	EnergyPriceResult,
+	EnergyPriceValues,
+	EnergyType,
+	RoomHeaterResult,
+	RoomHeaterValues,
+} from "./RoomHeaterTypes";
 
 export const defaultRoomHeatingValues: RoomHeaterValues = {
 	motorOutputPower: undefined,
@@ -30,6 +36,30 @@ const options: ListOption<EnergyType>[] = [
 	{ label: "Heizöl", key: "heatOil", value: "heatOil" },
 	{ label: "Erdgas", key: "earthGas", value: "earthGas" },
 ];
+
+const getEmail = (
+	roomHeaterResult: RoomHeaterResult | undefined,
+	energyPriceResult: EnergyPriceResult | undefined,
+	isOil: boolean,
+) => `
+	Motoraufnahmeleistung [kw]: ${roomHeaterResult?.motorPowerUsage} \n
+	Nutzbare Energie pro Laststunde Öl [kwh]: ${roomHeaterResult?.availableOilPower} \n
+	Nutzbare Energie pro Laststunde Luft [kwh]: ${roomHeaterResult?.availableAirPower} \n
+	Wärmeleistung eff. mit Wärmetauscher [kw]: ${
+		roomHeaterResult?.heatPowerEfficiencyWithHeatTransfer
+	} \n
+	Erzeugte Wärmeleistung WRG [kwh/Jahr]: ${roomHeaterResult?.generatedHeatPowerWRG} \n
+	Erzeugte Wärmeleistung Lüftungstechnik [kwh/Jahr]: ${roomHeaterResult?.generatedHeatPowerAir} \n
+	Kosten [€]:  ${energyPriceResult?.completePrice} \n
+	Erzeugte Energie [kwh/Jahr]:  ${energyPriceResult?.generatedEnergy} \n
+	Wärmeleistung eff. ${isOil ? "Öl" : "Gase"}heizung [kwh/Jahr]:  ${
+	energyPriceResult?.heatPowerEfficiency
+} \n
+	Einsparung WRG mit Wärmetauscher [€/Jahr]:  ${energyPriceResult?.savingsWRGHeat.price} \n
+	Einsparung mit Lüftungsanlage [€/Jahr]:  ${energyPriceResult?.savingsAir.price} \n
+	Einsparung WRG mit Wärmetauscher [kg-CO2/Jahr]:  ${energyPriceResult?.savingsWRGHeat.co2} \n
+	Einsparung mit Lüftungsanlage [kg-CO2/Jahr]:  ${energyPriceResult?.savingsAir.co2}\n
+`;
 
 const RoomHeaterCalculator: FC = () => {
 	const [selectedEnergy, setSelectedEnergy] = useState<ListOption<EnergyType>>(options[0]);
@@ -205,9 +235,11 @@ const RoomHeaterCalculator: FC = () => {
 						<NumberInput number={energyPriceResult?.savingsAir.co2} disabled={true} />
 					</LabelWrapper>
 				</div>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Raumheizung durch Abluftwärme"
+					getEmail={() => getEmail(roomHeatingResult, energyPriceResult, isOil)}
+				/>
 			</Container>
 		</Container>
 	);
