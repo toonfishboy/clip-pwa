@@ -1,7 +1,6 @@
 import { FC, useMemo, useState } from "react";
-import { useUpdateValue } from "../../hooks/useUpdateValue";
-import { pipeCalculator, SelectedPipeValue } from "../../utils/clipCalc";
-import Button from "../../controls/Layout/Button";
+import { GetDocValue, useUpdateValue } from "../../hooks/useUpdateValue";
+import { pipeCalculator, PipeResult, SelectedPipeValue } from "../../utils/clipCalc";
 import { checkNaN, hasRequiredValues } from "../../utils/helper";
 import Header from "../../controls/Layout/Header";
 import RadioGroup from "../../controls/RadioGroup/RadioGroup";
@@ -9,6 +8,7 @@ import LabelRadioInput from "../../controls/LabelRadioInput";
 import LabelText from "../../controls/LabelText";
 import ListSelect from "../../controls/Inputs/ListSelect";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 
 export type PipeValues = {
 	volume: number | undefined;
@@ -27,6 +27,16 @@ const defaultPipeValues: PipeValues = {
 	pressureLoss: undefined,
 	diameter: undefined,
 };
+
+const getEmail = (getValues: GetDocValue<PipeValues>, result: PipeResult | undefined) => `
+	Gesamtvolumenstrom V[m³/m]:  ${getValues("volume")} \n
+	Stömungstechnische Rohrlänge L[m]: ${getValues("length")} \n
+	Druckverlust [bar]: ${getValues("pressureLoss")} \n
+	Netzdruck bar[ü]: ${getValues("netPressure")} \n
+	Rohrinnendurchmesser di [mm]: ${getValues("diameter")} \n
+	Rohr Volumen [l]: ${result?.pipeVolume ?? 0} \n
+	Geschwindigkeit [m/s]: ${result?.airSpeed ?? 0}
+`;
 
 const PipeCableCalculator: FC = () => {
 	const [pipeValues, setPipeValues] = useState<PipeValues>(defaultPipeValues);
@@ -113,9 +123,11 @@ const PipeCableCalculator: FC = () => {
 						<LabelText>Die Luft Geschwindigkeit beträgt: {result?.airSpeed} [m/s]</LabelText>
 					)}
 				</RadioGroup>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Rohrleitung"
+					getEmail={() => getEmail(getCalcValue, result)}
+				/>
 			</Container>
 		</Container>
 	);

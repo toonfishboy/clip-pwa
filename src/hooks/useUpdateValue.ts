@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 
-type GetDocValue<Type, Key extends keyof Type = keyof Type> = (key: Key) => Type[Key];
+export type GetDocValue<Type, Key extends keyof Type = keyof Type> = (key: Key) => Type[Key];
 
-type SetDocValue<Type, Key extends keyof Type = keyof Type, Value extends Type[Key] = Type[Key]> = (
+export type SetDocValue<Type, Key extends keyof Type = keyof Type, Value extends Type[Key] = Type[Key]> = (
 	key: Key,
 ) => (value: Value) => void;
 

@@ -1,5 +1,4 @@
 import { FC, useMemo, useState } from "react";
-import Button from "../../controls/Layout/Button";
 import Header from "../../controls/Layout/Header";
 import HelperText from "../../controls/Layout/HelperText";
 import { RadioHeader } from "../../controls/LabelRadioInput";
@@ -13,11 +12,12 @@ import { hasRequiredValues } from "../../utils/helper";
 import LabelText from "../../controls/LabelText";
 import Input from "../../controls/Inputs/Input";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 
-const mediumOptions: ListOption[] = [
-	{ key: "air", label: "Luft" },
-	{ key: "oxygen", label: "Sauerstoff" },
-	{ key: "carbonDioxide", label: "Kohlenstoffdioxid" },
+const mediumOptions: ListOption<MediumType>[] = [
+	{ key: "air", label: "Luft", value: "air" },
+	{ key: "oxygen", label: "Sauerstoff", value: "oxygen" },
+	{ key: "carbonDioxide", label: "Kohlenstoffdioxid", value: "carbonDioxide" },
 ];
 
 type MediumType = "air" | "oxygen" | "carbonDioxide";
@@ -51,10 +51,40 @@ const defaultLeakageValues: LeakageValues = {
 	...mediumValues.air,
 };
 
+const getEmail = (
+	leakageValues: LeakageValues,
+	medium: ListOption<MediumType>,
+	selected: SelectedLeakageValue,
+	result: [number, number] | undefined,
+) => {
+	const base = `
+		Medium: ${medium.label} \n
+		Druck p1 [bar]: ${leakageValues.pressureP1} \n
+		Druck p2 [bar]: ${leakageValues.pressureP2} \n
+		Temperatur [Grad C]: ${leakageValues.temperature}
+	`;
+	switch (selected) {
+		case "hole":
+			return `
+				${base} \n
+				Leckagestrom [l/min]: ${leakageValues.leakageCurrent} \n
+                Bohrungsdurchmesser maximal [mm]: ${result?.[0]} \n
+                Bohrungsdurchmesser minimal [mm]: ${result?.[1]}
+			`;
+		case "leakageCurrent":
+			return `
+				${base} \n
+				Leckagestrom maximal [l/min]: ${result?.[0]} \n
+                Leckagestrom minimal [l/min]: ${result?.[1]} \n
+                Bohrungsdurchmesser [mm]: ${leakageValues.hole}
+			`;
+	}
+};
+
 const LeakageCalculator: FC = () => {
 	const [leakageValues, setLeakageValues] = useState<LeakageValues>(defaultLeakageValues);
 	const [selected, setSelected] = useState<SelectedLeakageValue>("hole");
-	const [medium, setMedium] = useState<ListOption>(mediumOptions[0]);
+	const [medium, setMedium] = useState<ListOption<MediumType>>(mediumOptions[0]);
 	const [getLeakageValues, updateLeakageValues] = useUpdateValue(leakageValues, setLeakageValues);
 	const resetValues = () => setLeakageValues(defaultLeakageValues);
 
@@ -81,8 +111,9 @@ const LeakageCalculator: FC = () => {
 		);
 	}, [leakageValues, selected]);
 
-	const selectMediumChange = (option: ListOption) => {
-		const medium = option.key as MediumType;
+	const selectMediumChange = (option: ListOption<MediumType>) => {
+		const medium = option.value;
+		if (!medium) return;
 		setLeakageValues({ ...leakageValues, ...mediumValues[medium] });
 		setMedium(option);
 	};
@@ -160,9 +191,11 @@ const LeakageCalculator: FC = () => {
 						)}
 					</LabelWrapper>
 				</RadioGroup>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Leckage"
+					getEmail={() => getEmail(leakageValues, medium, selected, result)}
+				/>
 			</Container>
 		</Container>
 	);

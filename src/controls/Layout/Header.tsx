@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { MdArrowBack } from "react-icons/all";
+import { MdArrowBack, MdSettings } from "react-icons/all";
 import { iconClassName } from "../../pages/Home";
 import { Link } from "@tanstack/react-router";
 
@@ -14,7 +14,9 @@ const Header: FC<HeaderProps> = ({ title }) => {
 				<MdArrowBack className={iconClassName} />
 			</Link>
 			<span className={"p-2 text-2xl"}>{title}</span>
-			<div className={"w-10"} />
+			<Link to={"/settings"}>
+				<MdSettings className={iconClassName} />
+			</Link>
 		</header>
 	);
 };

@@ -3,6 +3,12 @@ import { round } from "./helper";
 
 export type SelectedPipeValue = "volume" | "length" | "pressureLoss" | "netPressure" | "diameter";
 
+export type PipeResult = {
+	result: number;
+	pipeVolume: number;
+	airSpeed: number;
+};
+
 export function pipeCalculator(
 	volume: number,
 	length: number,
@@ -10,7 +16,7 @@ export function pipeCalculator(
 	netPressure: number,
 	diameter: number,
 	selected: SelectedPipeValue,
-) {
+): PipeResult {
 	let calcVolume = volume / 60;
 	let calcDiameter = diameter / 1000;
 	let calcNetPressure = netPressure + 1;
@@ -213,7 +219,7 @@ export function waterAmountCalculator(
 	return round((saturation * (humidity / 100) * airDelivery * 60) / (pressure * 1000));
 }
 
-export type CondensateResultValues = {
+export type CondensateResult = {
 	waterAmount: number;
 	condensateLoss: number;
 	remainingHumidity: number;
@@ -230,7 +236,7 @@ export function condensateCalculator(
 	coolTemp: number,
 	dtp: number,
 	hours: number,
-): CondensateResultValues {
+): CondensateResult {
 	const waterAmount = waterAmountCalculator(airTemp, humidity, airDelivery);
 	const remainingHumidity = waterAmountCalculator(coolTemp, 100, airDelivery, pressure);
 	const condensateLoss = round(waterAmount - remainingHumidity);

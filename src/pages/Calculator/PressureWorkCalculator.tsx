@@ -1,8 +1,8 @@
 import { FC, useMemo, useState } from "react";
 import NumberInput from "../../controls/Inputs/NumberInput";
 import LabelWrapper from "../../controls/LabelWrapper";
-import Button from "../../controls/Layout/Button";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 import Header from "../../controls/Layout/Header";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
 import { pressureWorkCalculator } from "../../utils/clipCalc";
@@ -17,6 +17,12 @@ const defaultPressureWorkValus: PressureWorkValues = {
 	pressureP1: undefined,
 	temperature: 20,
 };
+
+const getEmail = (pressureWorkValues: PressureWorkValues, result: number | undefined) => `
+	Netzdruck [bar]: ${pressureWorkValues.pressureP1} \n
+	Umgebungstemperatur [C]: ${pressureWorkValues.temperature} \n
+	Leistungsaufnahme [%]:  ${result}
+`;
 
 const PressureWorkCalculator: FC = () => {
 	const [pressureWorkValues, setPressureWorkValues] =
@@ -54,9 +60,11 @@ const PressureWorkCalculator: FC = () => {
 				<LabelWrapper label="Leistungsaufnahme [%]:">
 					<NumberInput number={result} disabled={true} />
 				</LabelWrapper>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Verdichtungsarbeit"
+					getEmail={() => getEmail(pressureWorkValues, result)}
+				/>
 			</Container>
 		</Container>
 	);

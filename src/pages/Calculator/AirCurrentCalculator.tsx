@@ -3,11 +3,11 @@ import ListSelect, { ListOption } from "../../controls/Inputs/ListSelect";
 import NumberInput from "../../controls/Inputs/NumberInput";
 import { RadioHeader } from "../../controls/LabelRadioInput";
 import LabelWrapper from "../../controls/LabelWrapper";
-import Button from "../../controls/Layout/Button";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 import Header from "../../controls/Layout/Header";
 import RadioGroup from "../../controls/RadioGroup/RadioGroup";
-import { useUpdateValue } from "../../hooks/useUpdateValue";
+import { GetDocValue, useUpdateValue } from "../../hooks/useUpdateValue";
 import { airCurrentCalculator, SelectedAirCurrentValue } from "../../utils/clipCalc";
 import { checkNaN, hasRequiredValues, round } from "../../utils/helper";
 
@@ -58,6 +58,14 @@ const defaultAirCurrentValues: AirCurrentValues = {
 	length: undefined,
 	width: undefined,
 };
+
+const getEmail = (getValues: GetDocValue<AirCurrentValues>) => `
+	Kühlluftmenge [m³/h]:  ${getValues("volume")} \n
+	Empfohlene Geschwindigkeit [m/s]: ${getValues("velocity")} \n
+	Freie Fläche [m²]: ${getValues("area")} \n
+	Länge * Breite [m] : ${getValues("length")} * ${getValues("width")} \n
+	Durchmesser [m] : ${getValues("diameter")}
+`;
 
 const AirCurrentCalculator: FC = () => {
 	const [airCurrentValues, setAirCurrentValues] =
@@ -181,9 +189,11 @@ const AirCurrentCalculator: FC = () => {
 						</LabelWrapper>
 					</LabelWrapper>
 				</RadioGroup>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Lüftungstechnik"
+					getEmail={() => getEmail(getCalcValue)}
+				/>
 			</Container>
 		</Container>
 	);

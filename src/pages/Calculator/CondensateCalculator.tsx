@@ -1,11 +1,11 @@
 import { FC, useMemo, useState } from "react";
 import NumberInput from "../../controls/Inputs/NumberInput";
 import LabelWrapper from "../../controls/LabelWrapper";
-import Button from "../../controls/Layout/Button";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 import Header from "../../controls/Layout/Header";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
-import { condensateCalculator } from "../../utils/clipCalc";
+import { condensateCalculator, CondensateResult } from "../../utils/clipCalc";
 import { hasRequiredValues } from "../../utils/helper";
 
 export type CondensateValues = {
@@ -27,6 +27,25 @@ const defaultCondensateValues: CondensateValues = {
 	dtp: 5,
 	hours: 1,
 };
+
+const getEmail = (
+	condensateValues: CondensateValues,
+	condensateResult: CondensateResult | undefined,
+) => `
+	Umgebungstemperatur [C]: ${condensateValues.airTemp} \r\n
+    Relative Feuchte der Ansaugluft [%]: ${condensateValues.humidity} \n
+    Liefermenge des Kompressors [m³/min]:  ${condensateValues.airDelivery} \n
+    Verdichtungsenddruck [barÜ]: ${condensateValues.pressure} \n
+    Kompressor Austrittstemperatur [°C]: ${condensateValues.coolTemp} \n
+    Drucktaupunkt [°C]: ${condensateValues.dtp} \n
+    Stunden: ${condensateValues.hours} \n
+    Angesaugte Wasser Menge [l/h]: ${condensateResult?.waterAmount} \n
+    Kondensat Ausfall nach Verdichtung [l/h]: ${condensateResult?.condensateLoss} \n
+    Restfeuchte [l/h]: ${condensateResult?.remainingHumidity} \n
+    Kondensat nach Kältetrockner [l/h]: ${condensateResult?.coldLoss} \n
+    Kondensat Ausfall insgesamt [l/h]: ${condensateResult?.totalLoss} \n
+    Restfeuchte nach Kältetrockner [l/h]: ${condensateResult?.coldHumidity}
+`;
 
 const CondensateCalculator: FC = () => {
 	const [condensateValues, setCondensateValues] =
@@ -115,9 +134,11 @@ const CondensateCalculator: FC = () => {
 				<LabelWrapper label="Restfeuchte nach Kältetrockner [l/h]:">
 					<NumberInput number={result?.coldHumidity} disabled={true} />
 				</LabelWrapper>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Kondensat"
+					getEmail={() => getEmail(condensateValues, result)}
+				/>
 			</Container>
 		</Container>
 	);

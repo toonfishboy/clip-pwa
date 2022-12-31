@@ -1,14 +1,14 @@
 import { FC, useMemo, useState } from "react";
 import NumberInput from "../../controls/Inputs/NumberInput";
 import { containerCalculator, SelectedContainerValue } from "../../utils/clipCalc";
-import { useUpdateValue } from "../../hooks/useUpdateValue";
+import { GetDocValue, useUpdateValue } from "../../hooks/useUpdateValue";
 import LabelWrapper from "../../controls/LabelWrapper";
 import RadioGroup from "../../controls/RadioGroup/RadioGroup";
 import { checkNaN, hasRequiredValues } from "../../utils/helper";
 import Header from "../../controls/Layout/Header";
-import Button from "../../controls/Layout/Button";
 import LabelRadioInput from "../../controls/LabelRadioInput";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 
 type ContainerValues = {
 	deliveredAmount: number | undefined;
@@ -27,6 +27,15 @@ const defaultContainerValues: ContainerValues = {
 	onPressure: undefined,
 	volume: undefined,
 };
+
+const getEmail = (getValues: GetDocValue<ContainerValues>) => `
+	Liefermenge des Kompressors [m³/min]: ${getValues("deliveredAmount")} \n
+	Benötigte Liefermenge [m³/min]:  ${getValues("necessaryAmount")} \n
+	Zulässige Motorschaltspiele/h [1/h]:  ${getValues("engineTolerance")} \n
+	Ausschaltdruck des Kompressors [barÜ]:  ${getValues("offPressure")} \n
+	Einschaltdruck des Kompressors [barÜ]:  ${getValues("onPressure")} \n
+	Volumen des Druckluftbehälters [m³]:  ${getValues("volume")}
+`;
 
 const ContainerCalculator: FC = () => {
 	const [containerValues, setContainerValues] = useState<ContainerValues>(defaultContainerValues);
@@ -110,9 +119,11 @@ const ContainerCalculator: FC = () => {
 						onNumberChange={updateContainerValues("volume")}
 					/>
 				</RadioGroup>
-				<div className={"flex"}>
-					<Button onClick={resetValues}>Zurücksetzen</Button>
-				</div>
+				<Footer
+					resetValues={resetValues}
+					subject="Behälter Leckage"
+					getEmail={() => getEmail(getCalcValue)}
+				/>
 			</Container>
 		</Container>
 	);

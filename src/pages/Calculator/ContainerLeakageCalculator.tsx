@@ -3,6 +3,7 @@ import NumberInput from "../../controls/Inputs/NumberInput";
 import LabelWrapper from "../../controls/LabelWrapper";
 import Button from "../../controls/Layout/Button";
 import Container from "../../controls/Layout/Container";
+import Footer from "../../controls/Layout/Footer";
 import Header from "../../controls/Layout/Header";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
 import { containerLeakageCalculator } from "../../utils/clipCalc";
@@ -21,6 +22,14 @@ const defaultContainerLeakageValues: ContainerLeakageValues = {
 	offPressure: undefined,
 	measureTime: undefined,
 };
+
+const getEmail = (containerLeakageValues: ContainerLeakageValues, leakage: number | undefined) => `
+    Behältervolumen [l]: ${containerLeakageValues.volume} \n
+	Druckbehälteranfangsdruck [barÜ]:  ${containerLeakageValues.onPressure} \n
+	Druckbehälterenddruck [barÜ]:  ${containerLeakageValues.offPressure} \n
+	Messzeit [s]:  ${containerLeakageValues.measureTime} \n
+	Leckagemenge [m3/min]:  ${leakage}
+`;
 
 const ContainerLeakageCalculator: FC = () => {
 	const [isMeasuring, setIsMeasuring] = useState<boolean>(false);
@@ -100,9 +109,11 @@ const ContainerLeakageCalculator: FC = () => {
 					<NumberInput number={result} disabled={true} />
 				</LabelWrapper>
 			</Container>
-			<div className={"flex"}>
-				<Button onClick={resetValues}>Zurücksetzen</Button>
-			</div>
+			<Footer
+				resetValues={resetValues}
+				subject="Behälter Leckage"
+				getEmail={() => getEmail(containerLeakageValues, result)}
+			/>
 		</Container>
 	);
 };

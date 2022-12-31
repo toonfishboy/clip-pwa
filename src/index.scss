@@ -10,4 +10,7 @@ input[type="number"]::-webkit-inner-spin-button {
   .input-primary {
     @apply border border-slate-800 rounded-md p-2 disabled:bg-gray-300 disabled:text-rose-600;
   }
+  .button-primary {
+    @apply shadow-md rounded-md py-2 px-3 bg-gradient-to-tr from-rose-500 to-rose-700 text-white text-lg;
+  }
 }
