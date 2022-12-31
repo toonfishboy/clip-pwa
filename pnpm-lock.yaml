@@ -15,6 +15,7 @@ specifiers:
   postcss: ^8.4.20
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-error-boundary: ^3.1.4
   react-icons: ^4.7.1
   recoil: ^0.7.6
   rome: ^11.0.0
@@ -30,6 +31,7 @@ dependencies:
   classnames: 2.3.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-error-boundary: 3.1.4_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
   recoil: 0.7.6_biqbaboplfbrettd7655fr4n2y
   sass: 1.57.1
@@ -4066,6 +4068,16 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-error-boundary/3.1.4_react@18.2.0:
+    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.20.7
+      react: 18.2.0
+    dev: false
 
   /react-icons/4.7.1_react@18.2.0:
     resolution: {integrity: sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==}
