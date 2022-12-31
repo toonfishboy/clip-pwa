@@ -96,26 +96,38 @@ const RoomHeaterCalculator: FC = () => {
 						onNumberChange={updateRoomHeatingValues("heatTransferEfficiency")}
 					/>
 				</LabelWrapper>
-				<div className="grid grid-cols-[50%_50%] gap-2">
-					<LabelWrapper label="Motoraufnahmeleistung [kw]:">
+				<div className="flex flex-wrap gap-2">
+					<LabelWrapper label="Motoraufnahmeleistung [kw]:" className="result-display">
 						<NumberInput number={roomHeatingResult?.motorPowerUsage} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Nutzbare Energie pro Laststunde Öl [kwh]:">
+					<LabelWrapper
+						label="Nutzbare Energie pro Laststunde Öl [kwh]:"
+						className="result-display"
+					>
 						<NumberInput number={roomHeatingResult?.availableOilPower} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Nutzbare Energie pro Laststunde Luft [kwh]:">
+					<LabelWrapper
+						label="Nutzbare Energie pro Laststunde Luft [kwh]:"
+						className="result-display"
+					>
 						<NumberInput number={roomHeatingResult?.availableAirPower} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Wärmeleistung eff. mit Wärmetauscher [kw]:">
+					<LabelWrapper
+						label="Wärmeleistung eff. mit Wärmetauscher [kw]:"
+						className="result-display"
+					>
 						<NumberInput
 							number={roomHeatingResult?.heatPowerEfficiencyWithHeatTransfer}
 							disabled={true}
 						/>
 					</LabelWrapper>
-					<LabelWrapper label="Erzeugte Wärmeleistung WRG [kwh/Jahr]:">
+					<LabelWrapper label="Erzeugte Wärmeleistung WRG [kwh/Jahr]:" className="result-display">
 						<NumberInput number={roomHeatingResult?.generatedHeatPowerWRG} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Erzeugte Wärmeleistung Lüftungstechnik [kwh/Jahr]:">
+					<LabelWrapper
+						label="Erzeugte Wärmeleistung Lüftungstechnik [kwh/Jahr]:"
+						className="result-display"
+					>
 						<NumberInput number={roomHeatingResult?.generatedHeatPowerAir} disabled={true} />
 					</LabelWrapper>
 				</div>
@@ -158,26 +170,38 @@ const RoomHeaterCalculator: FC = () => {
 						onNumberChange={updateEnergyPriceValues("heaterEfficiency")}
 					/>
 				</LabelWrapper>
-				<div className="grid grid-cols-[50%_50%] gap-2">
-					<LabelWrapper label="Kosten [€]:">
+				<div className="flex flex-wrap gap-2">
+					<LabelWrapper label="Kosten [€]:" className="result-display">
 						<NumberInput number={energyPriceResult?.completePrice} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Erzeugte Energie [kwh/Jahr]:">
+					<LabelWrapper label="Erzeugte Energie [kwh/Jahr]:" className="result-display">
 						<NumberInput number={energyPriceResult?.generatedEnergy} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label={`Wärmeleistung eff. ${isOil ? "Öl" : "Gase"}heizung [kwh/Jahr]:`}>
+					<LabelWrapper
+						label={`Wärmeleistung eff. ${isOil ? "Öl" : "Gase"}heizung [kwh/Jahr]:`}
+						className="result-display"
+					>
 						<NumberInput number={energyPriceResult?.heatPowerEfficiency} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Einsparung WRG mit Wärmetauscher [€/Jahr]:">
+					<LabelWrapper
+						label="Einsparung WRG mit Wärmetauscher [€/Jahr]:"
+						className="result-display"
+					>
 						<NumberInput number={energyPriceResult?.savingsWRGHeat.price} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Einsparung mit Lüftungsanlage [€/Jahr]:">
+					<LabelWrapper label="Einsparung mit Lüftungsanlage [€/Jahr]:" className="result-display">
 						<NumberInput number={energyPriceResult?.savingsAir.price} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Einsparung WRG mit Wärmetauscher [kg-CO2/Jahr]:">
+					<LabelWrapper
+						label="Einsparung WRG mit Wärmetauscher [kg-CO2/Jahr]:"
+						className="result-display"
+					>
 						<NumberInput number={energyPriceResult?.savingsWRGHeat.co2} disabled={true} />
 					</LabelWrapper>
-					<LabelWrapper label="Einsparung mit Lüftungsanlage [kg-CO2/Jahr]:">
+					<LabelWrapper
+						label="Einsparung mit Lüftungsanlage [kg-CO2/Jahr]:"
+						className="result-display"
+					>
 						<NumberInput number={energyPriceResult?.savingsAir.co2} disabled={true} />
 					</LabelWrapper>
 				</div>

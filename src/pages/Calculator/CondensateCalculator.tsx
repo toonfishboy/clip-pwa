@@ -116,24 +116,29 @@ const CondensateCalculator: FC = () => {
 						onNumberChange={updateCondensateValues("hours")}
 					/>
 				</LabelWrapper>
-				<LabelWrapper label="Angesaugte Wasser Menge [l/h]:">
-					<NumberInput number={result?.waterAmount} disabled={true} />
-				</LabelWrapper>
-				<LabelWrapper label="Kondensat Ausfall nach Verdichtung [l/h]:">
-					<NumberInput number={result?.condensateLoss} disabled={true} />
-				</LabelWrapper>
-				<LabelWrapper label="Restfeuchte [l/h]:">
-					<NumberInput number={result?.remainingHumidity} disabled={true} />
-				</LabelWrapper>
-				<LabelWrapper label="Kondensat nach Kältetrockner [l/h]:">
-					<NumberInput number={result?.coldLoss} disabled={true} />
-				</LabelWrapper>
-				<LabelWrapper label="Kondensat Ausfall insgesamt [l/h]:">
-					<NumberInput number={result?.totalLoss} disabled={true} />
-				</LabelWrapper>
-				<LabelWrapper label="Restfeuchte nach Kältetrockner [l/h]:">
-					<NumberInput number={result?.coldHumidity} disabled={true} />
-				</LabelWrapper>
+				<div className="flex flex-wrap gap-2">
+					<LabelWrapper label="Angesaugte Wasser Menge [l/h]:" className="result-display">
+						<NumberInput number={result?.waterAmount} disabled={true} />
+					</LabelWrapper>
+					<LabelWrapper
+						label="Kondensat Ausfall nach Verdichtung [l/h]:"
+						className="result-display"
+					>
+						<NumberInput number={result?.condensateLoss} disabled={true} />
+					</LabelWrapper>
+					<LabelWrapper label="Restfeuchte [l/h]:" className="result-display">
+						<NumberInput number={result?.remainingHumidity} disabled={true} />
+					</LabelWrapper>
+					<LabelWrapper label="Kondensat nach Kältetrockner [l/h]:" className="result-display">
+						<NumberInput number={result?.coldLoss} disabled={true} />
+					</LabelWrapper>
+					<LabelWrapper label="Kondensat Ausfall insgesamt [l/h]:" className="result-display">
+						<NumberInput number={result?.totalLoss} disabled={true} />
+					</LabelWrapper>
+					<LabelWrapper label="Restfeuchte nach Kältetrockner [l/h]:" className="result-display">
+						<NumberInput number={result?.coldHumidity} disabled={true} />
+					</LabelWrapper>
+				</div>
 				<Footer
 					resetValues={resetValues}
 					subject="Kondensat"

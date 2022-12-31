@@ -8,7 +8,7 @@ export type LabelWrapperProps = AllHTMLAttributes<HTMLLabelElement> &
 		header?: JSX.Element;
 	};
 const LabelWrapper: FC<LabelWrapperProps> = ({ header, label, className, children, ...props }) => (
-	<label {...props} className={classNames("flex  flex-col", className)}>
+	<label {...props} className={classNames("flex flex-col", className)}>
 		{header ? header : <LabelText>{label}</LabelText>}
 		{children}
 	</label>
