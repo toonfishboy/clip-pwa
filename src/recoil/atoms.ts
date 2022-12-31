@@ -10,7 +10,8 @@ const localStorageEffect =
 	({ setSelf, onSet }: SyncEffect<T>) => {
 		const savedValue = window.localStorage.getItem(key);
 		if (savedValue != null) {
-			setSelf(JSON.parse(savedValue) as T);
+			const { value } = JSON.parse(savedValue) as { value: T };
+			setSelf(value);
 		}
 
 		onSet((newValue: T) => {
@@ -18,8 +19,7 @@ const localStorageEffect =
 				window.localStorage.removeItem(key);
 				return;
 			}
-			const value = typeof newValue === "string" ? newValue : JSON.stringify(newValue);
-			window.localStorage.setItem(key, value);
+			window.localStorage.setItem(key, JSON.stringify({ value: newValue }));
 		});
 	};
 
