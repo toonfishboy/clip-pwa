@@ -9,7 +9,6 @@ import RadioGroup from "../../controls/RadioGroup/RadioGroup";
 import { useUpdateValue } from "../../hooks/useUpdateValue";
 import { leakageCalculator, SelectedLeakageValue } from "../../utils/clipCalc";
 import { hasRequiredValues } from "../../utils/helper";
-import LabelText from "../../controls/LabelText";
 import Input from "../../controls/Inputs/Input";
 import Container from "../../controls/Layout/Container";
 import Footer from "../../controls/Layout/Footer";
@@ -160,11 +159,13 @@ const LeakageCalculator: FC = () => {
 						header={<RadioHeader radioValue={"leakageCurrent"} label={"Leckagestrom [l/min]:"} />}
 					>
 						{selected === "leakageCurrent" ? (
-							<div className="flex items-center gap-2">
-								<LabelText>Max:</LabelText>
-								<Input disabled={true} value={result?.[0]} />
-								<LabelText>Min:</LabelText>
-								<Input disabled={true} value={result?.[1]} />
+							<div className="flex flex-wrap gap-2">
+								<LabelWrapper label="Min:" className="result-display">
+									<Input disabled={true} value={result?.[0]} />
+								</LabelWrapper>
+								<LabelWrapper label="Max:" className="result-display">
+									<Input disabled={true} value={result?.[1]} />
+								</LabelWrapper>
 							</div>
 						) : (
 							<NumberInput
@@ -177,11 +178,13 @@ const LeakageCalculator: FC = () => {
 						header={<RadioHeader label={"Bohrungsdurchmesser [mm]:"} radioValue={"hole"} />}
 					>
 						{selected === "hole" ? (
-							<div className="flex items-center gap-2">
-								<LabelText>Max:</LabelText>
-								<Input disabled={true} value={result?.[0]} />
-								<LabelText>Min:</LabelText>
-								<Input disabled={true} value={result?.[1]} />
+							<div className="flex flex-wrap gap-2">
+								<LabelWrapper label="Min:" className="result-display">
+									<Input disabled={true} value={result?.[0]} />
+								</LabelWrapper>
+								<LabelWrapper label="Max:" className="result-display">
+									<Input disabled={true} value={result?.[1]} />
+								</LabelWrapper>
 							</div>
 						) : (
 							<NumberInput

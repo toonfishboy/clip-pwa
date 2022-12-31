@@ -164,15 +164,15 @@ const AirCurrentCalculator: FC = () => {
 							number={getCalcValue("area")}
 							onNumberChange={updateAirCurrentValues("area")}
 						/>
-						<div className="flex gap-2 w-full items-center">
-							<LabelWrapper label="Länge [m]:" className="grow">
+						<div className="flex flex-wrap gap-2">
+							<LabelWrapper label="Länge [m]:" className="result-display">
 								<NumberInput
 									disabled={selected === "area"}
 									number={getCalcValue("length")}
 									onNumberChange={updateArea("length")}
 								/>
 							</LabelWrapper>
-							<LabelWrapper label="Breite [m]:" className="grow">
+							<LabelWrapper label="Breite [m]:" className="result-display">
 								<NumberInput
 									disabled={selected === "area"}
 									number={getCalcValue("width")}

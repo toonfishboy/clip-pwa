@@ -108,12 +108,12 @@ const ContainerLeakageCalculator: FC = () => {
 				<LabelWrapper label="Leckagemenge [m3/min]:">
 					<NumberInput number={result} disabled={true} />
 				</LabelWrapper>
+				<Footer
+					resetValues={resetValues}
+					subject="Behälter Leckage"
+					getEmail={() => getEmail(containerLeakageValues, result)}
+				/>
 			</Container>
-			<Footer
-				resetValues={resetValues}
-				subject="Behälter Leckage"
-				getEmail={() => getEmail(containerLeakageValues, result)}
-			/>
 		</Container>
 	);
 };
