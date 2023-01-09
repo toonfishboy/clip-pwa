@@ -26,7 +26,7 @@ const IconLink: FC<IconLinkProps> = ({ to, title, className, children }) => (
 		to={to}
 		className={classNames(
 			className,
-			"grow basis-[350px] my-2 w-full bg-rose-600 p-4 rounded-md flex flex-col items-center gap-2",
+			"w-full bg-rose-600 p-4 rounded-md flex flex-col items-center gap-2",
 		)}
 		params={{}}
 		search={{}}
@@ -47,7 +47,7 @@ const Home: FC = () => {
 					<MdSettings className={iconClassName} />
 				</Link>
 			</header>
-			<section className={"gap-2 m-4 flex flex-wrap"}>
+			<section className={"gap-2 m-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))]"}>
 				<IconLink to={"/pipeCable"} title={"Rohrleitung"}>
 					<GiPipes className={"w-10 h-10"} />
 				</IconLink>
