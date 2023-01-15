@@ -47,7 +47,7 @@ const Home: FC = () => {
 					<MdSettings className={iconClassName} />
 				</Link>
 			</header>
-			<section className={"gap-2 m-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))]"}>
+			<section className={"gap-2 m-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]"}>
 				<IconLink to={"/pipeCable"} title={"Rohrleitung"}>
 					<GiPipes className={"w-10 h-10"} />
 				</IconLink>

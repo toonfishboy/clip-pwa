@@ -199,7 +199,8 @@ export function pressureWorkCalculator(pressureP1: number, temperature: number) 
 	 * Math.round((result - 1) * Math.pow(10, 3)) / 10;
 	 * Calculation for app and other website
 	 */
-	return round(1 / ((1 - t0 / t1) / (1 - T2 / t1)));
+	const result = round(1 / ((1 - t0 / t1) / (1 - T2 / t1)), 3);
+	return Math.round((result - 1) * Math.pow(10, 3)) / 10;
 }
 
 export function waterAmountCalculator(
