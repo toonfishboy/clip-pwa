@@ -19,8 +19,8 @@ const defaultPressureWorkValus: PressureWorkValues = {
 };
 
 const getEmail = (pressureWorkValues: PressureWorkValues, result: number | undefined) => `
-	Netzdruck [bar]: ${pressureWorkValues.pressureP1} \n
-	Umgebungstemperatur [C]: ${pressureWorkValues.temperature} \n
+	Netzdruck [bar]: ${pressureWorkValues.pressureP1}%0D%0A
+	Umgebungstemperatur [C]: ${pressureWorkValues.temperature}%0D%0A
 	Leistungsaufnahme [%]:  ${result}
 `;
 

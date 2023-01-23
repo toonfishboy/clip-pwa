@@ -12,8 +12,8 @@ import {
 	MdMenu,
 	MdSettings,
 } from "react-icons/all";
-import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 interface IconLinkProps extends PropsWithChildren {
 	to: string;
@@ -28,8 +28,6 @@ const IconLink: FC<IconLinkProps> = ({ to, title, className, children }) => (
 			className,
 			"w-full bg-rose-600 p-4 rounded-md flex flex-col items-center gap-2",
 		)}
-		params={{}}
-		search={{}}
 	>
 		{children}
 		<span className={"text-xl w-full text-center"}>{title}</span>

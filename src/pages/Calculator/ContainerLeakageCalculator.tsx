@@ -24,10 +24,10 @@ const defaultContainerLeakageValues: ContainerLeakageValues = {
 };
 
 const getEmail = (containerLeakageValues: ContainerLeakageValues, leakage: number | undefined) => `
-    Behältervolumen [l]: ${containerLeakageValues.volume} \n
-	Druckbehälteranfangsdruck [barÜ]:  ${containerLeakageValues.onPressure} \n
-	Druckbehälterenddruck [barÜ]:  ${containerLeakageValues.offPressure} \n
-	Messzeit [s]:  ${containerLeakageValues.measureTime} \n
+    Behältervolumen [l]: ${containerLeakageValues.volume}%0D%0A
+	Druckbehälteranfangsdruck [barÜ]:  ${containerLeakageValues.onPressure}%0D%0A
+	Druckbehälterenddruck [barÜ]:  ${containerLeakageValues.offPressure}%0D%0A
+	Messzeit [s]:  ${containerLeakageValues.measureTime}%0D%0A
 	Leckagemenge [m3/min]:  ${leakage}
 `;
 

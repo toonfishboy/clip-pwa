@@ -29,12 +29,12 @@ const defaultPipeValues: PipeValues = {
 };
 
 const getEmail = (getValues: GetDocValue<PipeValues>, result: PipeResult | undefined) => `
-	Gesamtvolumenstrom V[m³/m]:  ${getValues("volume")} \n
-	Stömungstechnische Rohrlänge L[m]: ${getValues("length")} \n
-	Druckverlust [bar]: ${getValues("pressureLoss")} \n
-	Netzdruck bar[ü]: ${getValues("netPressure")} \n
-	Rohrinnendurchmesser di [mm]: ${getValues("diameter")} \n
-	Rohr Volumen [l]: ${result?.pipeVolume ?? 0} \n
+	Gesamtvolumenstrom V[m³/m]:  ${getValues("volume")}%0D%0A
+	Stömungstechnische Rohrlänge L[m]: ${getValues("length")}%0D%0A
+	Druckverlust [bar]: ${getValues("pressureLoss")}%0D%0A
+	Netzdruck bar[ü]: ${getValues("netPressure")}%0D%0A
+	Rohrinnendurchmesser di [mm]: ${getValues("diameter")}%0D%0A
+	Rohr Volumen [l]: ${result?.pipeVolume ?? 0}%0D%0A
 	Geschwindigkeit [m/s]: ${result?.airSpeed ?? 0}
 `;
 

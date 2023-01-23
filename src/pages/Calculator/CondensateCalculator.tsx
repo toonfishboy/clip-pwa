@@ -32,19 +32,19 @@ const getEmail = (
 	condensateValues: CondensateValues,
 	condensateResult: CondensateResult | undefined,
 ) => `
-	Umgebungstemperatur [C]: ${condensateValues.airTemp} \r\n
-    Relative Feuchte der Ansaugluft [%]: ${condensateValues.humidity} \n
-    Liefermenge des Kompressors [m³/min]:  ${condensateValues.airDelivery} \n
-    Verdichtungsenddruck [barÜ]: ${condensateValues.pressure} \n
-    Kompressor Austrittstemperatur [°C]: ${condensateValues.coolTemp} \n
-    Drucktaupunkt [°C]: ${condensateValues.dtp} \n
-    Stunden: ${condensateValues.hours} \n
-    Angesaugte Wasser Menge [l/h]: ${condensateResult?.waterAmount} \n
-    Kondensat Ausfall nach Verdichtung [l/h]: ${condensateResult?.condensateLoss} \n
-    Restfeuchte [l/h]: ${condensateResult?.remainingHumidity} \n
-    Kondensat nach Kältetrockner [l/h]: ${condensateResult?.coldLoss} \n
-    Kondensat Ausfall insgesamt [l/h]: ${condensateResult?.totalLoss} \n
-    Restfeuchte nach Kältetrockner [l/h]: ${condensateResult?.coldHumidity}
+Umgebungstemperatur [C]: ${condensateValues.airTemp}%0D%0A
+Relative Feuchte der Ansaugluft [%]: ${condensateValues.humidity}%0D%0A
+Liefermenge des Kompressors [m³/min]:  ${condensateValues.airDelivery}%0D%0A
+Verdichtungsenddruck [barÜ]: ${condensateValues.pressure}%0D%0A
+Kompressor Austrittstemperatur [°C]: ${condensateValues.coolTemp}%0D%0A
+Drucktaupunkt [°C]: ${condensateValues.dtp}%0D%0A
+Stunden: ${condensateValues.hours}%0D%0A
+Angesaugte Wasser Menge [l/h]: ${condensateResult?.waterAmount}%0D%0A
+Kondensat Ausfall nach Verdichtung [l/h]: ${condensateResult?.condensateLoss}%0D%0A
+Restfeuchte [l/h]: ${condensateResult?.remainingHumidity}%0D%0A
+Kondensat nach Kältetrockner [l/h]: ${condensateResult?.coldLoss}%0D%0A
+Kondensat Ausfall insgesamt [l/h]: ${condensateResult?.totalLoss}%0D%0A
+Restfeuchte nach Kältetrockner [l/h]: ${condensateResult?.coldHumidity}
 `;
 
 const CondensateCalculator: FC = () => {

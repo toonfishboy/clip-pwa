@@ -29,11 +29,11 @@ const defaultContainerValues: ContainerValues = {
 };
 
 const getEmail = (getValues: GetDocValue<ContainerValues>) => `
-	Liefermenge des Kompressors [m³/min]: ${getValues("deliveredAmount")} \n
-	Benötigte Liefermenge [m³/min]:  ${getValues("necessaryAmount")} \n
-	Zulässige Motorschaltspiele/h [1/h]:  ${getValues("engineTolerance")} \n
-	Ausschaltdruck des Kompressors [barÜ]:  ${getValues("offPressure")} \n
-	Einschaltdruck des Kompressors [barÜ]:  ${getValues("onPressure")} \n
+	Liefermenge des Kompressors [m³/min]: ${getValues("deliveredAmount")}%0D%0A
+	Benötigte Liefermenge [m³/min]:  ${getValues("necessaryAmount")}%0D%0A
+	Zulässige Motorschaltspiele/h [1/h]:  ${getValues("engineTolerance")}%0D%0A
+	Ausschaltdruck des Kompressors [barÜ]:  ${getValues("offPressure")}%0D%0A
+	Einschaltdruck des Kompressors [barÜ]:  ${getValues("onPressure")}%0D%0A
 	Volumen des Druckluftbehälters [m³]:  ${getValues("volume")}
 `;
 

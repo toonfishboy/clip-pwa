@@ -60,11 +60,11 @@ const defaultAirCurrentValues: AirCurrentValues = {
 };
 
 const getEmail = (getValues: GetDocValue<AirCurrentValues>) => `
-	Kühlluftmenge [m³/h]:  ${getValues("volume")} \n
-	Empfohlene Geschwindigkeit [m/s]: ${getValues("velocity")} \n
-	Freie Fläche [m²]: ${getValues("area")} \n
-	Länge * Breite [m] : ${getValues("length")} * ${getValues("width")} \n
-	Durchmesser [m] : ${getValues("diameter")}
+	Kühlluftmenge [m³/h]:  ${getValues("volume")}%0D%0A
+	Empfohlene Geschwindigkeit [m/s]: ${getValues("velocity")}%0D%0A
+	Freie Fläche [m²]: ${getValues("area")}%0D%0A
+	Länge * Breite [m] : ${getValues("length")} * ${getValues("width")}%0D%0A
+	Durchmesser [m] : ${getValues("diameter")}%0D%0A
 `;
 
 const AirCurrentCalculator: FC = () => {

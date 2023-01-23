@@ -57,26 +57,24 @@ const getEmail = (
 	result: [number, number] | undefined,
 ) => {
 	const base = `
-		Medium: ${medium.label} \n
-		Druck p1 [bar]: ${leakageValues.pressureP1} \n
-		Druck p2 [bar]: ${leakageValues.pressureP2} \n
-		Temperatur [Grad C]: ${leakageValues.temperature}
+		Medium: ${medium.label}%0D%0A
+		Druck p1 [bar]: ${leakageValues.pressureP1}%0D%0A
+		Druck p2 [bar]: ${leakageValues.pressureP2}%0D%0A
+		Temperatur [Grad C]: ${leakageValues.temperature}%0D%0A
 	`;
 	switch (selected) {
 		case "hole":
-			return `
-				${base} \n
-				Leckagestrom [l/min]: ${leakageValues.leakageCurrent} \n
-                Bohrungsdurchmesser maximal [mm]: ${result?.[0]} \n
-                Bohrungsdurchmesser minimal [mm]: ${result?.[1]}
-			`;
+			return `${base}
+Leckagestrom [l/min]: ${leakageValues.leakageCurrent}%0D%0A
+Bohrungsdurchmesser maximal [mm]: ${result?.[0]}%0D%0A
+Bohrungsdurchmesser minimal [mm]: ${result?.[1]}
+		`;
 		case "leakageCurrent":
-			return `
-				${base} \n
-				Leckagestrom maximal [l/min]: ${result?.[0]} \n
-                Leckagestrom minimal [l/min]: ${result?.[1]} \n
-                Bohrungsdurchmesser [mm]: ${leakageValues.hole}
-			`;
+			return `${base}
+Leckagestrom maximal [l/min]: ${result?.[0]}%0D%0A
+Leckagestrom minimal [l/min]: ${result?.[1]}%0D%0A
+Bohrungsdurchmesser [mm]: ${leakageValues.hole}
+		`;
 	}
 };
 
