@@ -17,5 +17,5 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react'],
-  ignorePatterns: ['src/**/*.scss', 'src/**/*.json', 'tsconfig.json', '**/*.cjs'],
+  ignorePatterns: ['**/*.scss', '**/*.json', '**/*.cjs'],
 };
