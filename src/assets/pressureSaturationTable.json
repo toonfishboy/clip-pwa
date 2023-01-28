@@ -2,23 +2,23 @@
   "table": [
     {
       "temp": -20,
-      "saturation": 0.900
+      "saturation": 0.9
     },
     {
       "temp": -19,
-      "saturation": 0.990
+      "saturation": 0.99
     },
     {
       "temp": -18,
-      "saturation": 1.080
+      "saturation": 1.08
     },
     {
       "temp": -17,
-      "saturation": 1.180
+      "saturation": 1.18
     },
     {
       "temp": -16,
-      "saturation": 1.290
+      "saturation": 1.29
     },
     {
       "temp": -15,
@@ -26,35 +26,35 @@
     },
     {
       "temp": -14,
-      "saturation": 1.530
+      "saturation": 1.53
     },
     {
       "temp": -13,
-      "saturation": 1.670
+      "saturation": 1.67
     },
     {
       "temp": -12,
-      "saturation": 1.820
+      "saturation": 1.82
     },
     {
       "temp": -11,
-      "saturation": 1.980
+      "saturation": 1.98
     },
     {
       "temp": -10,
-      "saturation": 2.150
+      "saturation": 2.15
     },
     {
       "temp": -9,
-      "saturation": 2.340
+      "saturation": 2.34
     },
     {
       "temp": -8,
-      "saturation": 2.550
+      "saturation": 2.55
     },
     {
       "temp": -7,
-      "saturation": 2.770
+      "saturation": 2.77
     },
     {
       "temp": -6,
@@ -62,19 +62,19 @@
     },
     {
       "temp": -5,
-      "saturation": 3.260
+      "saturation": 3.26
     },
     {
       "temp": -4,
-      "saturation": 3.530
+      "saturation": 3.53
     },
     {
       "temp": -3,
-      "saturation": 3.820
+      "saturation": 3.82
     },
     {
       "temp": -2,
-      "saturation": 4.140
+      "saturation": 4.14
     },
     {
       "temp": -1,
@@ -82,7 +82,7 @@
     },
     {
       "temp": 0,
-      "saturation": 4.840
+      "saturation": 4.84
     },
     {
       "temp": 1,
@@ -90,7 +90,7 @@
     },
     {
       "temp": 2,
-      "saturation": 5.590
+      "saturation": 5.59
     },
     {
       "temp": 3,
@@ -106,259 +106,259 @@
     },
     {
       "temp": 6,
-      "saturation": 7.280
+      "saturation": 7.28
     },
     {
       "temp": 7,
-      "saturation": 7.760
+      "saturation": 7.76
     },
     {
       "temp": 8,
-      "saturation": 8.270
+      "saturation": 8.27
     },
     {
       "temp": 9,
-      "saturation": 8.820
+      "saturation": 8.82
     },
     {
       "temp": 10,
-      "saturation": 9.400
+      "saturation": 9.4
     },
     {
       "temp": 11,
-      "saturation": 10.000
+      "saturation": 10.0
     },
     {
       "temp": 12,
-      "saturation": 10.650
+      "saturation": 10.65
     },
     {
       "temp": 13,
-      "saturation": 11.350
+      "saturation": 11.35
     },
     {
       "temp": 14,
-      "saturation": 12.100
+      "saturation": 12.1
     },
     {
       "temp": 15,
-      "saturation": 12.850
+      "saturation": 12.85
     },
     {
       "temp": 16,
-      "saturation": 13.650
+      "saturation": 13.65
     },
     {
       "temp": 17,
-      "saturation": 14.500
+      "saturation": 14.5
     },
     {
       "temp": 18,
-      "saturation": 15.400
+      "saturation": 15.4
     },
     {
       "temp": 19,
-      "saturation": 16.300
+      "saturation": 16.3
     },
     {
       "temp": 20,
-      "saturation": 17.300
+      "saturation": 17.3
     },
     {
       "temp": 21,
-      "saturation": 18.350
+      "saturation": 18.35
     },
     {
       "temp": 22,
-      "saturation": 19.400
+      "saturation": 19.4
     },
     {
       "temp": 23,
-      "saturation": 20.550
+      "saturation": 20.55
     },
     {
       "temp": 24,
-      "saturation": 21.800
+      "saturation": 21.8
     },
     {
       "temp": 25,
-      "saturation": 23.050
+      "saturation": 23.05
     },
     {
       "temp": 26,
-      "saturation": 24.350
+      "saturation": 24.35
     },
     {
       "temp": 27,
-      "saturation": 25.750
+      "saturation": 25.75
     },
     {
       "temp": 28,
-      "saturation": 27.200
+      "saturation": 27.2
     },
     {
       "temp": 29,
-      "saturation": 28.700
+      "saturation": 28.7
     },
     {
       "temp": 30,
-      "saturation": 30.350
+      "saturation": 30.35
     },
     {
       "temp": 31,
-      "saturation": 32.050
+      "saturation": 32.05
     },
     {
       "temp": 32,
-      "saturation": 33.850
+      "saturation": 33.85
     },
     {
       "temp": 33,
-      "saturation": 35.700
+      "saturation": 35.7
     },
     {
       "temp": 34,
-      "saturation": 37.650
+      "saturation": 37.65
     },
     {
       "temp": 35,
-      "saturation": 39.600
+      "saturation": 39.6
     },
     {
       "temp": 36,
-      "saturation": 41.700
+      "saturation": 41.7
     },
     {
       "temp": 37,
-      "saturation": 43.900
+      "saturation": 43.9
     },
     {
       "temp": 38,
-      "saturation": 46.200
+      "saturation": 46.2
     },
     {
       "temp": 39,
-      "saturation": 48.600
+      "saturation": 48.6
     },
     {
       "temp": 40,
-      "saturation": 51.150
+      "saturation": 51.15
     },
     {
       "temp": 41,
-      "saturation": 53.800
+      "saturation": 53.8
     },
     {
       "temp": 42,
-      "saturation": 56.700
+      "saturation": 56.7
     },
     {
       "temp": 43,
-      "saturation": 59.600
+      "saturation": 59.6
     },
     {
       "temp": 44,
-      "saturation": 62.500
+      "saturation": 62.5
     },
     {
       "temp": 45,
-      "saturation": 65.400
+      "saturation": 65.4
     },
     {
       "temp": 46,
-      "saturation": 68.500
+      "saturation": 68.5
     },
     {
       "temp": 47,
-      "saturation": 71.800
+      "saturation": 71.8
     },
     {
       "temp": 48,
-      "saturation": 75.300
+      "saturation": 75.3
     },
     {
       "temp": 49,
-      "saturation": 79.000
+      "saturation": 79.0
     },
     {
       "temp": 50,
-      "saturation": 83.000
+      "saturation": 83.0
     },
     {
       "temp": 51,
-      "saturation": 87.000
+      "saturation": 87.0
     },
     {
       "temp": 52,
-      "saturation": 91.000
+      "saturation": 91.0
     },
     {
       "temp": 53,
-      "saturation": 95.200
+      "saturation": 95.2
     },
     {
       "temp": 54,
-      "saturation": 99.600
+      "saturation": 99.6
     },
     {
       "temp": 55,
-      "saturation": 104.300
+      "saturation": 104.3
     },
     {
       "temp": 56,
-      "saturation": 109.300
+      "saturation": 109.3
     },
     {
       "temp": 57,
-      "saturation": 114.400
+      "saturation": 114.4
     },
     {
       "temp": 58,
-      "saturation": 119.600
+      "saturation": 119.6
     },
     {
       "temp": 59,
-      "saturation": 124.900
+      "saturation": 124.9
     },
     {
       "temp": 60,
-      "saturation": 130.200
+      "saturation": 130.2
     },
     {
       "temp": 61,
-      "saturation": 135.900
+      "saturation": 135.9
     },
     {
       "temp": 62,
-      "saturation": 141.900
+      "saturation": 141.9
     },
     {
       "temp": 63,
-      "saturation": 148.100
+      "saturation": 148.1
     },
     {
       "temp": 64,
-      "saturation": 154.500
+      "saturation": 154.5
     },
     {
       "temp": 65,
-      "saturation": 161.100
+      "saturation": 161.1
     },
     {
       "temp": 66,
-      "saturation": 167.900
+      "saturation": 167.9
     },
     {
       "temp": 67,
-      "saturation": 175.000
+      "saturation": 175.0
     },
     {
       "temp": 68,
-      "saturation": 182.400
+      "saturation": 182.4
     },
     {
       "temp": 69,
-      "saturation": 190.100
+      "saturation": 190.1
     }
   ]
 }
