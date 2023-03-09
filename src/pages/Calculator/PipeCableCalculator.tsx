@@ -2,13 +2,12 @@ import { FC, useMemo, useState } from 'react';
 import { GetDocValue, useUpdateValue } from '../../hooks/useUpdateValue';
 import { pipeCalculator, PipeResult, SelectedPipeValue } from '../../utils/clipCalc';
 import { checkNaN, hasRequiredValues } from '../../utils/helper';
-import Header from '../../controls/Layout/Header';
 import RadioGroup from '../../controls/RadioGroup/RadioGroup';
 import LabelRadioInput from '../../controls/LabelRadioInput';
 import LabelText from '../../controls/LabelText';
 import ListSelect from '../../controls/Inputs/ListSelect';
-import Container from '../../controls/Layout/Container';
 import Footer from '../../controls/Layout/Footer';
+import { CalcProps } from '../../utils/types';
 
 export type PipeValues = {
   volume: number | undefined;
@@ -38,7 +37,7 @@ const getEmail = (getValues: GetDocValue<PipeValues>, result: PipeResult | undef
 	Geschwindigkeit [m/s]: ${result?.airSpeed ?? 0}
 `;
 
-const PipeCableCalculator: FC = () => {
+const PipeCableCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
   const [pipeValues, setPipeValues] = useState<PipeValues>(defaultPipeValues);
   const [volumeUnit, setVolumeUnit] = useState<VolumeUnit>('m³/m');
   const [selected, setSelected] = useState<SelectedPipeValue>('diameter');
@@ -64,70 +63,67 @@ const PipeCableCalculator: FC = () => {
   };
 
   return (
-    <Container>
-      <Header title={'Rohrleitung'} />
-      <Container className={'m-2 gap-2'}>
-        <RadioGroup
+    <>
+      <RadioGroup
+        selected={selected}
+        onSelectChange={(selected) => setSelected(selected as SelectedPipeValue)}
+      >
+        <ListSelect
+          selected={volumeUnit}
+          options={['m³/m', 'm³/h']}
+          onStringChange={(unit) => setVolumeUnit(unit as VolumeUnit)}
+        />
+        <LabelRadioInput
+          number={getCalcValue('volume')}
           selected={selected}
-          onSelectChange={(selected) => setSelected(selected as SelectedPipeValue)}
-        >
-          <ListSelect
-            selected={volumeUnit}
-            options={['m³/m', 'm³/h']}
-            onStringChange={(unit) => setVolumeUnit(unit as VolumeUnit)}
-          />
-          <LabelRadioInput
-            number={getCalcValue('volume')}
-            selected={selected}
-            radioValue={'volume'}
-            label={'Volumen:'}
-            onNumberChange={updatePipeValues('volume')}
-          />
-          <LabelRadioInput
-            number={getCalcValue('length')}
-            selected={selected}
-            radioValue={'length'}
-            label={'Länge [m]:'}
-            onNumberChange={updatePipeValues('length')}
-          />
-          <LabelRadioInput
-            number={getCalcValue('pressureLoss')}
-            selected={selected}
-            radioValue={'pressureLoss'}
-            label={'Druckverluste [bar]:'}
-            onNumberChange={updatePipeValues('pressureLoss')}
-          />
-          <LabelRadioInput
-            number={getCalcValue('netPressure')}
-            selected={selected}
-            radioValue={'netPressure'}
-            label={'Netzdruck [barÜ]:'}
-            onNumberChange={updatePipeValues('netPressure')}
-            errorText={
-              isPressureError ? 'Der Druckverlust kann nicht höher als der Netzdruck sein' : undefined
-            }
-          />
-          <LabelRadioInput
-            number={getCalcValue('diameter')}
-            selected={selected}
-            radioValue={'diameter'}
-            label={'Rohrinnendurchmesser di[mm]:'}
-            onNumberChange={updatePipeValues('diameter')}
-          />
-          {!isNaN(result?.pipeVolume ?? NaN) && (
-            <LabelText>Das Rohr hat ein Volumen von: {result?.pipeVolume} Liter</LabelText>
-          )}
-          {!isNaN(result?.airSpeed ?? NaN) && (
-            <LabelText>Die Luft Geschwindigkeit beträgt: {result?.airSpeed} [m/s]</LabelText>
-          )}
-        </RadioGroup>
+          radioValue={'volume'}
+          label={'Volumen:'}
+          onNumberChange={updatePipeValues('volume')}
+        />
+        <LabelRadioInput
+          number={getCalcValue('length')}
+          selected={selected}
+          radioValue={'length'}
+          label={'Länge [m]:'}
+          onNumberChange={updatePipeValues('length')}
+        />
+        <LabelRadioInput
+          number={getCalcValue('pressureLoss')}
+          selected={selected}
+          radioValue={'pressureLoss'}
+          label={'Druckverluste [bar]:'}
+          onNumberChange={updatePipeValues('pressureLoss')}
+        />
+        <LabelRadioInput
+          number={getCalcValue('netPressure')}
+          selected={selected}
+          radioValue={'netPressure'}
+          label={'Netzdruck [barÜ]:'}
+          onNumberChange={updatePipeValues('netPressure')}
+          errorText={isPressureError ? 'Der Druckverlust kann nicht höher als der Netzdruck sein' : undefined}
+        />
+        <LabelRadioInput
+          number={getCalcValue('diameter')}
+          selected={selected}
+          radioValue={'diameter'}
+          label={'Rohrinnendurchmesser di[mm]:'}
+          onNumberChange={updatePipeValues('diameter')}
+        />
+        {!isNaN(result?.pipeVolume ?? NaN) && (
+          <LabelText>Das Rohr hat ein Volumen von: {result?.pipeVolume} Liter</LabelText>
+        )}
+        {!isNaN(result?.airSpeed ?? NaN) && (
+          <LabelText>Die Luft Geschwindigkeit beträgt: {result?.airSpeed} [m/s]</LabelText>
+        )}
+      </RadioGroup>
+      {hasFooter && (
         <Footer
           resetValues={resetValues}
           subject="Rohrleitung"
           getEmail={() => getEmail(getCalcValue, result)}
         />
-      </Container>
-    </Container>
+      )}
+    </>
   );
 };
 

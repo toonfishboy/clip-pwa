@@ -1,12 +1,11 @@
 import { FC, useMemo, useState } from 'react';
 import NumberInput from '../../controls/Inputs/NumberInput';
 import LabelWrapper from '../../controls/LabelWrapper';
-import Container from '../../controls/Layout/Container';
 import Footer from '../../controls/Layout/Footer';
-import Header from '../../controls/Layout/Header';
 import { useUpdateValue } from '../../hooks/useUpdateValue';
 import { pressureWorkCalculator } from '../../utils/clipCalc';
 import { hasRequiredValues } from '../../utils/helper';
+import { CalcProps } from '../../utils/types';
 
 type PressureWorkValues = {
   pressureP1: number | undefined;
@@ -24,7 +23,7 @@ const getEmail = (pressureWorkValues: PressureWorkValues, result: number | undef
 	Leistungsaufnahme [%]:  ${result}
 `;
 
-const PressureWorkCalculator: FC = () => {
+const PressureWorkCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
   const [pressureWorkValues, setPressureWorkValues] = useState<PressureWorkValues>(defaultPressureWorkValus);
   const [getPressureWorkValues, updatePressureWorkValues] = useUpdateValue(
     pressureWorkValues,
@@ -39,33 +38,32 @@ const PressureWorkCalculator: FC = () => {
   }, [pressureWorkValues]);
 
   return (
-    <Container>
-      <Header title="Verdichtungsarbeit" />
-      <Container className={'m-2 gap-2'}>
-        <LabelWrapper label="Netzdruck [bar]:">
-          <NumberInput
-            number={getPressureWorkValues('pressureP1')}
-            onNumberChange={updatePressureWorkValues('pressureP1')}
-          />
-        </LabelWrapper>
-        <LabelWrapper label="Umgebungstemperatur [°C]:">
-          <NumberInput
-            min={0}
-            max={50}
-            number={getPressureWorkValues('temperature')}
-            onNumberChange={updatePressureWorkValues('temperature')}
-          />
-        </LabelWrapper>
-        <LabelWrapper label="Leistungsaufnahme [%]:">
-          <NumberInput number={result} disabled={true} />
-        </LabelWrapper>
+    <>
+      <LabelWrapper label="Netzdruck [bar]:">
+        <NumberInput
+          number={getPressureWorkValues('pressureP1')}
+          onNumberChange={updatePressureWorkValues('pressureP1')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Umgebungstemperatur [°C]:">
+        <NumberInput
+          min={0}
+          max={50}
+          number={getPressureWorkValues('temperature')}
+          onNumberChange={updatePressureWorkValues('temperature')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Leistungsaufnahme [%]:">
+        <NumberInput number={result} disabled={true} />
+      </LabelWrapper>
+      {hasFooter && (
         <Footer
           resetValues={resetValues}
           subject="Verdichtungsarbeit"
           getEmail={() => getEmail(pressureWorkValues, result)}
         />
-      </Container>
-    </Container>
+      )}
+    </>
   );
 };
 

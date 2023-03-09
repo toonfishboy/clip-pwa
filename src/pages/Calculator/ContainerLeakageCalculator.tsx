@@ -2,12 +2,11 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import NumberInput from '../../controls/Inputs/NumberInput';
 import LabelWrapper from '../../controls/LabelWrapper';
 import Button from '../../controls/Layout/Button';
-import Container from '../../controls/Layout/Container';
 import Footer from '../../controls/Layout/Footer';
-import Header from '../../controls/Layout/Header';
 import { useUpdateValue } from '../../hooks/useUpdateValue';
 import { containerLeakageCalculator } from '../../utils/clipCalc';
 import { hasRequiredValues } from '../../utils/helper';
+import { CalcProps } from '../../utils/types';
 
 type ContainerLeakageValues = {
   volume: number | undefined;
@@ -31,7 +30,7 @@ const getEmail = (containerLeakageValues: ContainerLeakageValues, leakage: numbe
 	Leckagemenge [m3/min]:  ${leakage}
 `;
 
-const ContainerLeakageCalculator: FC = () => {
+const ContainerLeakageCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
   const [isMeasuring, setIsMeasuring] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timer>();
   const [containerLeakageValues, setContainerLeakageValues] = useState<ContainerLeakageValues>(
@@ -72,47 +71,46 @@ const ContainerLeakageCalculator: FC = () => {
   }, []);
 
   return (
-    <Container>
-      <Header title={'Behälter Leckage'} />
-      <Container className={'m-2 gap-2'}>
-        <LabelWrapper label="Behältervolumen [l]:">
+    <>
+      <LabelWrapper label="Behältervolumen [l]:">
+        <NumberInput
+          number={getContainerLeakageValues('volume')}
+          onNumberChange={updateContainerLeakageValues('volume')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Druckbehälteranfangsdruck [barÜ]:">
+        <NumberInput
+          number={getContainerLeakageValues('onPressure')}
+          onNumberChange={updateContainerLeakageValues('onPressure')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Druckbehälterenddruck [barÜ]:">
+        <NumberInput
+          number={getContainerLeakageValues('offPressure')}
+          onNumberChange={updateContainerLeakageValues('offPressure')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Messzeit [s]:">
+        <div className="flex w-full items-center gap-2">
           <NumberInput
-            number={getContainerLeakageValues('volume')}
-            onNumberChange={updateContainerLeakageValues('volume')}
+            className="grow"
+            number={getContainerLeakageValues('measureTime')}
+            onNumberChange={updateContainerLeakageValues('measureTime')}
           />
-        </LabelWrapper>
-        <LabelWrapper label="Druckbehälteranfangsdruck [barÜ]:">
-          <NumberInput
-            number={getContainerLeakageValues('onPressure')}
-            onNumberChange={updateContainerLeakageValues('onPressure')}
-          />
-        </LabelWrapper>
-        <LabelWrapper label="Druckbehälterenddruck [barÜ]:">
-          <NumberInput
-            number={getContainerLeakageValues('offPressure')}
-            onNumberChange={updateContainerLeakageValues('offPressure')}
-          />
-        </LabelWrapper>
-        <LabelWrapper label="Messzeit [s]:">
-          <div className="flex w-full items-center gap-2">
-            <NumberInput
-              className="grow"
-              number={getContainerLeakageValues('measureTime')}
-              onNumberChange={updateContainerLeakageValues('measureTime')}
-            />
-            <Button onClick={isMeasuring ? stopTimer : startTimer}>{isMeasuring ? 'Stop' : 'Start'}</Button>
-          </div>
-        </LabelWrapper>
-        <LabelWrapper label="Leckagemenge [m3/min]:">
-          <NumberInput number={result} disabled={true} />
-        </LabelWrapper>
+          <Button onClick={isMeasuring ? stopTimer : startTimer}>{isMeasuring ? 'Stop' : 'Start'}</Button>
+        </div>
+      </LabelWrapper>
+      <LabelWrapper label="Leckagemenge [m3/min]:">
+        <NumberInput number={result} disabled={true} />
+      </LabelWrapper>
+      {hasFooter && (
         <Footer
           resetValues={resetValues}
           subject="Behälter Leckage"
           getEmail={() => getEmail(containerLeakageValues, result)}
         />
-      </Container>
-    </Container>
+      )}
+    </>
   );
 };
 

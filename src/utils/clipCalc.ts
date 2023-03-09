@@ -157,7 +157,7 @@ export function containerCalculator(
   volume: number,
   toCalc: SelectedContainerValue
 ) {
-  volume = volume / 1000;
+  const mVolume = volume / 1000;
   switch (toCalc) {
     case 'volume':
       return (
@@ -174,7 +174,7 @@ export function containerCalculator(
         (deliveredAmount *
           60 *
           (necessaryAmount / deliveredAmount - Math.pow(necessaryAmount / deliveredAmount, 2))) /
-          (volume * (offPressure - onPressure))
+          (mVolume * (offPressure - onPressure))
       );
   }
 }

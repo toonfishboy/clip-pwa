@@ -1,7 +1,5 @@
 import { FC, useMemo, useState } from 'react';
-import Header from '../../controls/Layout/Header';
 import HelperText from '../../controls/Layout/HelperText';
-import { RadioHeader } from '../../controls/LabelRadioInput';
 import LabelWrapper from '../../controls/LabelWrapper';
 import ListSelect, { ListOption } from '../../controls/Inputs/ListSelect';
 import NumberInput from '../../controls/Inputs/NumberInput';
@@ -10,8 +8,9 @@ import { useUpdateValue } from '../../hooks/useUpdateValue';
 import { leakageCalculator, SelectedLeakageValue } from '../../utils/clipCalc';
 import { hasRequiredValues } from '../../utils/helper';
 import Input from '../../controls/Inputs/Input';
-import Container from '../../controls/Layout/Container';
 import Footer from '../../controls/Layout/Footer';
+import { CalcProps } from '../../utils/types';
+import RadioButton from '../../controls/RadioGroup/RadioButton';
 
 const mediumOptions: ListOption<MediumType>[] = [
   { key: 'air', label: 'Luft', value: 'air' },
@@ -78,7 +77,7 @@ Bohrungsdurchmesser [mm]: ${leakageValues.hole}
   }
 };
 
-const LeakageCalculator: FC = () => {
+const LeakageCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
   const [leakageValues, setLeakageValues] = useState<LeakageValues>(defaultLeakageValues);
   const [selected, setSelected] = useState<SelectedLeakageValue>('hole');
   const [medium, setMedium] = useState<ListOption<MediumType>>(mediumOptions[0]);
@@ -109,82 +108,79 @@ const LeakageCalculator: FC = () => {
   const isP2Lower = (leakageValues.pressureP1 ?? 0) > (leakageValues.pressureP2 ?? 0);
 
   return (
-    <Container>
-      <Header title={'Leckage'} />
-      <Container className={'m-2 gap-2'}>
-        <LabelWrapper label="Medium">
-          <ListSelect
-            options={mediumOptions}
-            selected={medium}
-            onOptionChange={(option) => selectMediumChange(option)}
-          />
+    <>
+      <LabelWrapper label="Medium">
+        <ListSelect
+          options={mediumOptions}
+          selected={medium}
+          onOptionChange={(option) => selectMediumChange(option)}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Druck p1 [bar abs]:">
+        <NumberInput
+          number={getLeakageValues('pressureP1')}
+          onNumberChange={updateLeakageValues('pressureP1')}
+        />
+      </LabelWrapper>
+      <LabelWrapper label="Druck p2 [bar abs]:">
+        <NumberInput
+          number={getLeakageValues('pressureP2')}
+          onNumberChange={updateLeakageValues('pressureP2')}
+        />
+      </LabelWrapper>
+      {!isP2Lower && leakageValues.pressureP2 !== undefined && (
+        <HelperText type="error"> P2 muss kleiner als P1 sein</HelperText>
+      )}
+      <LabelWrapper label="Temperatur [Grad C]:">
+        <NumberInput
+          number={getLeakageValues('temperature')}
+          onNumberChange={updateLeakageValues('temperature')}
+        />
+      </LabelWrapper>
+      <RadioGroup
+        selected={selected}
+        onSelectChange={(selected) => setSelected(selected as SelectedLeakageValue)}
+      >
+        <LabelWrapper header={<RadioButton value={'leakageCurrent'} label={'Leckagestrom [l/min]:'} />}>
+          {selected === 'leakageCurrent' ? (
+            <div className="flex flex-wrap gap-2">
+              <LabelWrapper label="Min:" className="result-display">
+                <Input disabled={true} value={result?.[0]} />
+              </LabelWrapper>
+              <LabelWrapper label="Max:" className="result-display">
+                <Input disabled={true} value={result?.[1]} />
+              </LabelWrapper>
+            </div>
+          ) : (
+            <NumberInput
+              number={getLeakageValues('leakageCurrent')}
+              onNumberChange={updateLeakageValues('leakageCurrent')}
+            />
+          )}
         </LabelWrapper>
-        <LabelWrapper label="Druck p1 [bar abs]:">
-          <NumberInput
-            number={getLeakageValues('pressureP1')}
-            onNumberChange={updateLeakageValues('pressureP1')}
-          />
+        <LabelWrapper header={<RadioButton label={'Bohrungsdurchmesser [mm]:'} value={'hole'} />}>
+          {selected === 'hole' ? (
+            <div className="flex flex-wrap gap-2">
+              <LabelWrapper label="Min:" className="result-display">
+                <Input disabled={true} value={result?.[0]} />
+              </LabelWrapper>
+              <LabelWrapper label="Max:" className="result-display">
+                <Input disabled={true} value={result?.[1]} />
+              </LabelWrapper>
+            </div>
+          ) : (
+            <NumberInput number={getLeakageValues('hole')} onNumberChange={updateLeakageValues('hole')} />
+          )}
         </LabelWrapper>
-        <LabelWrapper label="Druck p2 [bar abs]:">
-          <NumberInput
-            number={getLeakageValues('pressureP2')}
-            onNumberChange={updateLeakageValues('pressureP2')}
-          />
-        </LabelWrapper>
-        {!isP2Lower && leakageValues.pressureP2 !== undefined && (
-          <HelperText type="error"> P2 muss kleiner als P1 sein</HelperText>
-        )}
-        <LabelWrapper label="Temperatur [Grad C]:">
-          <NumberInput
-            number={getLeakageValues('temperature')}
-            onNumberChange={updateLeakageValues('temperature')}
-          />
-        </LabelWrapper>
-        <RadioGroup
-          selected={selected}
-          onSelectChange={(selected) => setSelected(selected as SelectedLeakageValue)}
-        >
-          <LabelWrapper
-            header={<RadioHeader radioValue={'leakageCurrent'} label={'Leckagestrom [l/min]:'} />}
-          >
-            {selected === 'leakageCurrent' ? (
-              <div className="flex flex-wrap gap-2">
-                <LabelWrapper label="Min:" className="result-display">
-                  <Input disabled={true} value={result?.[0]} />
-                </LabelWrapper>
-                <LabelWrapper label="Max:" className="result-display">
-                  <Input disabled={true} value={result?.[1]} />
-                </LabelWrapper>
-              </div>
-            ) : (
-              <NumberInput
-                number={getLeakageValues('leakageCurrent')}
-                onNumberChange={updateLeakageValues('leakageCurrent')}
-              />
-            )}
-          </LabelWrapper>
-          <LabelWrapper header={<RadioHeader label={'Bohrungsdurchmesser [mm]:'} radioValue={'hole'} />}>
-            {selected === 'hole' ? (
-              <div className="flex flex-wrap gap-2">
-                <LabelWrapper label="Min:" className="result-display">
-                  <Input disabled={true} value={result?.[0]} />
-                </LabelWrapper>
-                <LabelWrapper label="Max:" className="result-display">
-                  <Input disabled={true} value={result?.[1]} />
-                </LabelWrapper>
-              </div>
-            ) : (
-              <NumberInput number={getLeakageValues('hole')} onNumberChange={updateLeakageValues('hole')} />
-            )}
-          </LabelWrapper>
-        </RadioGroup>
+      </RadioGroup>
+      {hasFooter && (
         <Footer
           resetValues={resetValues}
           subject="Leckage"
           getEmail={() => getEmail(leakageValues, medium, selected, result)}
         />
-      </Container>
-    </Container>
+      )}
+    </>
   );
 };
 

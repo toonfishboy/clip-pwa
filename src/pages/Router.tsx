@@ -10,6 +10,8 @@ import CondensateCalculator from './Calculator/CondensateCalculator';
 import UnitCalculator from './Calculator/UnitCalculator/UnitCalculator';
 import RoomHeaterCalculator from './Calculator/RoomHeating/RoomHeaterCalculator';
 import { createHashRouter } from 'react-router-dom';
+import Tools from './Misc/Tools';
+import CalcWrapper from '../controls/CalcWrapper';
 
 const router = createHashRouter([
   {
@@ -18,43 +20,83 @@ const router = createHashRouter([
   },
   {
     path: '/container',
-    element: <ContainerCalculator />,
+    element: (
+      <CalcWrapper title={'Behälter Leckage'}>
+        <ContainerCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/pipeCable',
-    element: <PipeCableCalculator />,
+    element: (
+      <CalcWrapper title={'Rohrleitung'}>
+        <PipeCableCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/airCurrent',
-    element: <AirCurrentCalculator />,
+    element: (
+      <CalcWrapper title={'Lüftungstechnik'}>
+        <AirCurrentCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/leakage',
-    element: <LeakageCalculator />,
+    element: (
+      <CalcWrapper title={'Leckage'}>
+        <LeakageCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/containerLeakage',
-    element: <ContainerLeakageCalculator />,
+    element: (
+      <CalcWrapper title={'Behälter Leckage'}>
+        <ContainerLeakageCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/pressureWork',
-    element: <PressureWorkCalculator />,
+    element: (
+      <CalcWrapper title={'Verdichtungsarbeit'}>
+        <PressureWorkCalculator />
+      </CalcWrapper>
+    ),
+  },
+  {
+    path: '/condensate',
+    element: (
+      <CalcWrapper title={'Kondensat'}>
+        <CondensateCalculator />
+      </CalcWrapper>
+    ),
+  },
+  {
+    path: '/units',
+    element: (
+      <CalcWrapper title={'Einheiten Rechner'}>
+        <UnitCalculator />
+      </CalcWrapper>
+    ),
+  },
+  {
+    path: '/roomHeater',
+    element: (
+      <CalcWrapper title={'Raumheizung durch Abluftwärme'}>
+        <RoomHeaterCalculator />
+      </CalcWrapper>
+    ),
   },
   {
     path: '/settings',
     element: <Settings />,
   },
   {
-    path: '/condensate',
-    element: <CondensateCalculator />,
-  },
-  {
-    path: '/units',
-    element: <UnitCalculator />,
-  },
-  {
-    path: '/roomHeater',
-    element: <RoomHeaterCalculator />,
+    path: '/tools',
+    element: <Tools />,
   },
 ]);
 

@@ -14,7 +14,10 @@ const Footer: FC<FooterProps> = ({ resetValues, getEmail, subject }) => {
   return (
     <div className={'flex gap-2'}>
       <Button onClick={resetValues}>Zurücksetzen</Button>
-      <a className="button-primary" href={`mailto:${email}?subject=${subject}&body=${getEmail()}`}>
+      <a
+        className="rounded-md bg-gradient-to-tr from-rose-500 to-rose-700 py-2 px-3 text-lg text-white shadow-md"
+        href={`mailto:${email}?subject=${subject}&body=${getEmail()}`}
+      >
         Ergebnis als Mail
       </a>
     </div>

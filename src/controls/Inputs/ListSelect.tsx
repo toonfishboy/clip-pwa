@@ -74,7 +74,10 @@ const ListSelect = <T,>({
   return (
     <div ref={containerRef} className="relative">
       <button
-        className={classNames('input-primary w-full text-left', className)}
+        className={classNames(
+          'w-full rounded-md border border-slate-400 p-2 text-left hover:border-black focus:border-clip disabled:bg-gray-300 disabled:text-rose-600',
+          className
+        )}
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={(event) => handleKeyDown(event)}
       >
@@ -88,7 +91,7 @@ const ListSelect = <T,>({
             options.map((option) => (
               <div
                 key={getOptionKey(option)}
-                className="w-full rounded-md py-2 px-4 hover:cursor-pointer hover:bg-rose-600 hover:text-white"
+                className="w-full rounded-md py-2 px-4 hover:cursor-pointer hover:bg-clip hover:text-white"
                 onClick={() => handleSelect(option)}
                 onKeyDown={() => handleSelect(option)}
               >

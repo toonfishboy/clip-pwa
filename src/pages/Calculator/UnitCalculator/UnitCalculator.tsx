@@ -1,8 +1,6 @@
 import { FC, useState } from 'react';
 import ListSelect, { ListOption } from '../../../controls/Inputs/ListSelect';
 import LabelWrapper from '../../../controls/LabelWrapper';
-import Container from '../../../controls/Layout/Container';
-import Header from '../../../controls/Layout/Header';
 import UnitDisplay, { UnitType } from './UnitDisplay';
 
 type UnitTypes = 'pressure' | 'volume' | 'power' | 'temperature' | 'volumeCurrent';
@@ -108,7 +106,7 @@ const UnitCalculator: FC = () => {
   const [temperatureValues, setTemperatureValues] = useState(temperatureType);
   const [volumeCurrentValues, setVolumeCurrentValues] = useState(volumeCurrentType);
 
-  const getUnitDispaly = () => {
+  const getUnitDisplay = () => {
     switch (selected.value) {
       case 'pressure':
         return <UnitDisplay unitValues={pressureValues} setUnitValues={setPressureValues} />;
@@ -126,15 +124,12 @@ const UnitCalculator: FC = () => {
   };
 
   return (
-    <Container>
-      <Header title={'Einheiten Rechner'} />
-      <Container className={'m-2 gap-2'}>
-        <LabelWrapper label="Einheit">
-          <ListSelect options={options} selected={selected} onOptionChange={setSelected} />
-        </LabelWrapper>
-        {getUnitDispaly()}
-      </Container>
-    </Container>
+    <>
+      <LabelWrapper label="Einheit">
+        <ListSelect options={options} selected={selected} onOptionChange={setSelected} />
+      </LabelWrapper>
+      {getUnitDisplay()}
+    </>
   );
 };
 

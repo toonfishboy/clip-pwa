@@ -1,15 +1,14 @@
 import { FC, useMemo, useState } from 'react';
 import ListSelect, { ListOption } from '../../controls/Inputs/ListSelect';
 import NumberInput from '../../controls/Inputs/NumberInput';
-import { RadioHeader } from '../../controls/LabelRadioInput';
 import LabelWrapper from '../../controls/LabelWrapper';
-import Container from '../../controls/Layout/Container';
 import Footer from '../../controls/Layout/Footer';
-import Header from '../../controls/Layout/Header';
+import RadioButton from '../../controls/RadioGroup/RadioButton';
 import RadioGroup from '../../controls/RadioGroup/RadioGroup';
 import { GetDocValue, useUpdateValue } from '../../hooks/useUpdateValue';
 import { airCurrentCalculator, SelectedAirCurrentValue } from '../../utils/clipCalc';
 import { checkNaN, hasRequiredValues, round } from '../../utils/helper';
+import { CalcProps } from '../../utils/types';
 
 const volumeOptions: ListOption<number | undefined>[] = [
   { label: 'Keine Auswahl', key: '', value: undefined },
@@ -67,7 +66,7 @@ const getEmail = (getValues: GetDocValue<AirCurrentValues>) => `
 	Durchmesser [m] : ${getValues('diameter')}%0D%0A
 `;
 
-const AirCurrentCalculator: FC = () => {
+const AirCurrentCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
   const [airCurrentValues, setAirCurrentValues] = useState<AirCurrentValues>(defaultAirCurrentValues);
   const [selected, setSelected] = useState<SelectedAirCurrentValue>('area');
   const [getAirCurrentValues, updateAirCurrentValues] = useUpdateValue(airCurrentValues, setAirCurrentValues);
@@ -108,79 +107,78 @@ const AirCurrentCalculator: FC = () => {
   const selectedVelocity = velocityOptions.find((option) => option.value === getAirCurrentValues('velocity'));
 
   return (
-    <Container>
-      <Header title="Lüftungstechnik" />
-      <Container className={'m-2 gap-2'}>
-        <RadioGroup
-          selected={selected}
-          onSelectChange={(selected) => setSelected(selected as SelectedAirCurrentValue)}
+    <>
+      <RadioGroup
+        selected={selected}
+        onSelectChange={(selected) => setSelected(selected as SelectedAirCurrentValue)}
+      >
+        <LabelWrapper
+          className="gap-2"
+          header={<RadioButton label="Kühlluftmenge [m³/h]:" value={'volume'} />}
         >
-          <LabelWrapper
-            className="gap-2"
-            header={<RadioHeader label="Kühlluftmenge [m³/h]:" radioValue={'volume'} />}
-          >
-            <ListSelect
-              disabled={selected === 'volume'}
-              options={volumeOptions}
-              selected={selectedVolume ?? volumeOptions[0]}
-              onOptionChange={(option) => updateAirCurrentValues('volume')(option.value)}
-            />
-            <NumberInput
-              disabled={selected === 'volume'}
-              number={getCalcValue('volume')}
-              onNumberChange={updateAirCurrentValues('volume')}
-            />
-          </LabelWrapper>
-          <LabelWrapper
-            className="gap-2"
-            header={<RadioHeader label="Empfohlene Geschwindigkeit [m/s]:" radioValue={'velocity'} />}
-          >
-            <ListSelect
-              disabled={selected === 'volume'}
-              options={velocityOptions}
-              selected={selectedVelocity ?? velocityOptions[0]}
-              onOptionChange={(option) => updateAirCurrentValues('velocity')(option.value)}
-            />
-            <NumberInput
-              disabled={selected === 'velocity'}
-              number={getCalcValue('velocity')}
-              onNumberChange={updateAirCurrentValues('velocity')}
-            />
-          </LabelWrapper>
-          <LabelWrapper header={<RadioHeader label="Freie Fläche [m²]:" radioValue={'area'} />}>
-            <NumberInput
-              disabled={selected === 'area'}
-              number={getCalcValue('area')}
-              onNumberChange={updateAirCurrentValues('area')}
-            />
-            <div className="flex flex-wrap gap-2">
-              <LabelWrapper label="Länge [m]:" className="result-display">
-                <NumberInput
-                  disabled={selected === 'area'}
-                  number={getCalcValue('length')}
-                  onNumberChange={updateArea('length')}
-                />
-              </LabelWrapper>
-              <LabelWrapper label="Breite [m]:" className="result-display">
-                <NumberInput
-                  disabled={selected === 'area'}
-                  number={getCalcValue('width')}
-                  onNumberChange={updateArea('width')}
-                />
-              </LabelWrapper>
-            </div>
-            <LabelWrapper label="Durchmesser [m]:">
+          <ListSelect
+            disabled={selected === 'volume'}
+            options={volumeOptions}
+            selected={selectedVolume ?? volumeOptions[0]}
+            onOptionChange={(option) => updateAirCurrentValues('volume')(option.value)}
+          />
+          <NumberInput
+            disabled={selected === 'volume'}
+            number={getCalcValue('volume')}
+            onNumberChange={updateAirCurrentValues('volume')}
+          />
+        </LabelWrapper>
+        <LabelWrapper
+          className="gap-2"
+          header={<RadioButton label="Empfohlene Geschwindigkeit [m/s]:" value={'velocity'} />}
+        >
+          <ListSelect
+            disabled={selected === 'volume'}
+            options={velocityOptions}
+            selected={selectedVelocity ?? velocityOptions[0]}
+            onOptionChange={(option) => updateAirCurrentValues('velocity')(option.value)}
+          />
+          <NumberInput
+            disabled={selected === 'velocity'}
+            number={getCalcValue('velocity')}
+            onNumberChange={updateAirCurrentValues('velocity')}
+          />
+        </LabelWrapper>
+        <LabelWrapper header={<RadioButton label="Freie Fläche [m²]:" value={'area'} />}>
+          <NumberInput
+            disabled={selected === 'area'}
+            number={getCalcValue('area')}
+            onNumberChange={updateAirCurrentValues('area')}
+          />
+          <div className="flex flex-wrap gap-2">
+            <LabelWrapper label="Länge [m]:" className="result-display">
               <NumberInput
                 disabled={selected === 'area'}
-                number={getCalcValue('diameter')}
-                onNumberChange={updateArea('diameter')}
+                number={getCalcValue('length')}
+                onNumberChange={updateArea('length')}
               />
             </LabelWrapper>
+            <LabelWrapper label="Breite [m]:" className="result-display">
+              <NumberInput
+                disabled={selected === 'area'}
+                number={getCalcValue('width')}
+                onNumberChange={updateArea('width')}
+              />
+            </LabelWrapper>
+          </div>
+          <LabelWrapper label="Durchmesser [m]:">
+            <NumberInput
+              disabled={selected === 'area'}
+              number={getCalcValue('diameter')}
+              onNumberChange={updateArea('diameter')}
+            />
           </LabelWrapper>
-        </RadioGroup>
+        </LabelWrapper>
+      </RadioGroup>
+      {hasFooter && (
         <Footer resetValues={resetValues} subject="Lüftungstechnik" getEmail={() => getEmail(getCalcValue)} />
-      </Container>
-    </Container>
+      )}
+    </>
   );
 };
 

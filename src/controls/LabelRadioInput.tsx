@@ -1,23 +1,10 @@
 import { FC } from 'react';
 import LabelWrapper from './LabelWrapper';
-import RadioButton from './RadioGroup/RadioButton';
-import LabelText from './LabelText';
+import RadioButton, { RadioButtonProps } from './RadioGroup/RadioButton';
 import NumberInput from './Inputs/NumberInput';
 import HelperText from './Layout/HelperText';
 
-interface RadioHeaderProps {
-  label: string;
-  radioValue: string;
-}
-
-export const RadioHeader: FC<RadioHeaderProps> = ({ radioValue, label }) => (
-  <div className={'flex items-center gap-1'}>
-    <RadioButton value={radioValue} />
-    <LabelText>{label}</LabelText>
-  </div>
-);
-
-interface LabelRadioInputProps extends RadioHeaderProps {
+interface LabelRadioInputProps extends Omit<RadioButtonProps, 'value'> {
   number: number | undefined;
   onNumberChange: (number: number | undefined) => void;
   selected: string;
@@ -34,7 +21,7 @@ const LabelRadioInput: FC<LabelRadioInputProps> = ({
   label,
   radioValue,
 }) => (
-  <LabelWrapper header={<RadioHeader label={label} radioValue={radioValue} />}>
+  <LabelWrapper header={<RadioButton label={label} value={radioValue} />}>
     <NumberInput number={number} disabled={selected === radioValue} onNumberChange={onNumberChange} />
     {errorText && <HelperText type="error">{errorText}</HelperText>}
   </LabelWrapper>
