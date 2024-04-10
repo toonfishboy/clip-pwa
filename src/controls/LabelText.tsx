@@ -1,14 +1,14 @@
-import { AllHTMLAttributes, FC, PropsWithChildren } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
+import type { AllHTMLAttributes, FC, PropsWithChildren } from 'react';
 
 interface LabelTextProps extends AllHTMLAttributes<HTMLSpanElement>, PropsWithChildren {
-  className?: string;
+	className?: string;
 }
 
 const LabelText: FC<LabelTextProps> = ({ className, children, ...props }) => (
-  <div {...props} className={classNames('text-lg', className)}>
-    {children}
-  </div>
+	<div {...props} className={clsx('text-lg', className)}>
+		{children}
+	</div>
 );
 
 export default LabelText;

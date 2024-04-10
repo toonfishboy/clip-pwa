@@ -1,3 +1,3 @@
 export type CalcProps = {
-  hasFooter?: boolean;
+	hasFooter?: boolean;
 };

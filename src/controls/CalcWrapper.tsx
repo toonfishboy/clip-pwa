@@ -1,18 +1,18 @@
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import Container from './Layout/Container';
 import Header from './Layout/Header';
 
 interface CalcWrapperProps extends PropsWithChildren {
-  title: string;
+	title: string;
 }
 
 const CalcWrapper: FC<CalcWrapperProps> = ({ children, title }) => {
-  return (
-    <Container>
-      <Header title={title} />
-      <Container className={'m-2 gap-2'}>{children}</Container>
-    </Container>
-  );
+	return (
+		<Container>
+			<Header title={title} />
+			<Container className={'m-2 gap-2'}>{children}</Container>
+		</Container>
+	);
 };
 
 export default CalcWrapper;

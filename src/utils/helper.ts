@@ -7,16 +7,16 @@
  * @returns
  */
 export const handleUnit = (
-  value: string,
-  setValue: (value: string) => void,
-  type: number,
-  setUnit: (number: number, type: number) => void
+	value: string,
+	setValue: (value: string) => void,
+	type: number,
+	setUnit: (number: number, type: number) => void,
 ) => {
-  const number = parseFloat(value);
-  if (value === '') setValue('');
-  if (isNaN(number)) return;
-  setValue(value);
-  setUnit(number, type);
+	const number = Number.parseFloat(value);
+	if (value === '') setValue('');
+	if (Number.isNaN(number)) return;
+	setValue(value);
+	setUnit(number, type);
 };
 
 /**
@@ -24,10 +24,10 @@ export const handleUnit = (
  * @param length
  */
 export const generateId = (length = 24) => {
-  return new Array(length)
-    .fill(0)
-    .map(() => (Math.random() * 16).toString(16)[0])
-    .reduce((a, b) => a + b);
+	return new Array(length)
+		.fill(0)
+		.map(() => (Math.random() * 16).toString(16)[0])
+		.reduce((a, b) => a + b);
 };
 
 /**
@@ -36,8 +36,8 @@ export const generateId = (length = 24) => {
  * @returns
  */
 export function checkNaN(value: number | undefined): number | undefined {
-  if (value === undefined) return undefined;
-  return isNaN(value) ? undefined : value;
+	if (value === undefined) return undefined;
+	return Number.isNaN(value) ? undefined : value;
 }
 
 /**
@@ -46,10 +46,10 @@ export function checkNaN(value: number | undefined): number | undefined {
  * @param resultKey
  */
 export function hasRequiredValues<Type extends object, Key extends keyof Type = keyof Type>(
-  value: Type,
-  resultKey?: Key
+	value: Type,
+	resultKey?: Key,
 ) {
-  return !Object.entries(value).some(([k, v]) => k !== resultKey && v === undefined);
+	return !Object.entries(value).some(([k, v]) => k !== resultKey && v === undefined);
 }
 
 /**
@@ -59,6 +59,6 @@ export function hasRequiredValues<Type extends object, Key extends keyof Type = 
  * @returns
  */
 export function round(value: number, length = 2) {
-  const moveLength = Math.pow(10, length);
-  return Math.round(value * moveLength) / moveLength;
+	const moveLength = 10 ** length;
+	return Math.round(value * moveLength) / moveLength;
 }

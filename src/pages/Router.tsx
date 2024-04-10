@@ -1,103 +1,158 @@
-import Home from './Home';
-import ContainerCalculator from './Calculator/ContainerCalculator';
-import PipeCableCalculator from './Calculator/PipeCableCalculator';
-import LeakageCalculator from './Calculator/LeakageCalculator';
-import ContainerLeakageCalculator from './Calculator/ContainerLeakageCalculator';
-import Settings from './Misc/Settings';
-import AirCurrentCalculator from './Calculator/AirCurrentCalculator';
-import PressureWorkCalculator from './Calculator/PressureWorkCalculator';
-import CondensateCalculator from './Calculator/CondensateCalculator';
-import UnitCalculator from './Calculator/UnitCalculator/UnitCalculator';
-import RoomHeaterCalculator from './Calculator/RoomHeating/RoomHeaterCalculator';
-import { createHashRouter } from 'react-router-dom';
-import Tools from './Misc/Tools';
+import { createHashHistory, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import type { FC, PropsWithChildren } from 'react';
 import CalcWrapper from '../controls/CalcWrapper';
+import ErrorFallback from '../controls/ErrorFallback';
+import AirCurrentCalculator from './Calculator/AirCurrentCalculator';
+import CondensateCalculator from './Calculator/CondensateCalculator';
+import ContainerCalculator from './Calculator/ContainerCalculator';
+import ContainerLeakageCalculator from './Calculator/ContainerLeakageCalculator';
+import LeakageCalculator from './Calculator/LeakageCalculator';
+import PipeCableCalculator from './Calculator/PipeCableCalculator';
+import PressureWorkCalculator from './Calculator/PressureWorkCalculator';
+import RoomHeaterCalculator from './Calculator/RoomHeating/RoomHeaterCalculator';
+import UnitCalculator from './Calculator/UnitCalculator/UnitCalculator';
+import Home from './Home';
+import Settings from './Misc/Settings';
+import Tools from './Misc/Tools';
+import { ErrorBoundary } from 'react-error-boundary';
 
-const router = createHashRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/container',
-    element: (
-      <CalcWrapper title={'Behälter Leckage'}>
-        <ContainerCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/pipeCable',
-    element: (
-      <CalcWrapper title={'Rohrleitung'}>
-        <PipeCableCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/airCurrent',
-    element: (
-      <CalcWrapper title={'Lüftungstechnik'}>
-        <AirCurrentCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/leakage',
-    element: (
-      <CalcWrapper title={'Leckage'}>
-        <LeakageCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/containerLeakage',
-    element: (
-      <CalcWrapper title={'Behälter Leckage'}>
-        <ContainerLeakageCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/pressureWork',
-    element: (
-      <CalcWrapper title={'Verdichtungsarbeit'}>
-        <PressureWorkCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/condensate',
-    element: (
-      <CalcWrapper title={'Kondensat'}>
-        <CondensateCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/units',
-    element: (
-      <CalcWrapper title={'Einheiten Rechner'}>
-        <UnitCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/roomHeater',
-    element: (
-      <CalcWrapper title={'Raumheizung durch Abluftwärme'}>
-        <RoomHeaterCalculator />
-      </CalcWrapper>
-    ),
-  },
-  {
-    path: '/settings',
-    element: <Settings />,
-  },
-  {
-    path: '/tools',
-    element: <Tools />,
-  },
+const RootComponent: FC<PropsWithChildren> = ({ children }) => {
+	return <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>;
+};
+
+const rootRoute = createRootRoute({
+	component: RootComponent,
+});
+
+const homeRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/',
+	component: Home,
+});
+
+const containerRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/container',
+	component: () => (
+		<CalcWrapper title={'Behälter Leckage'}>
+			<ContainerCalculator />
+		</CalcWrapper>
+	),
+});
+
+const pipeCableRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/pipeCable',
+	component: () => (
+		<CalcWrapper title={'Rohrleitung'}>
+			<PipeCableCalculator />
+		</CalcWrapper>
+	),
+});
+
+const airCurrentRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/airCurrent',
+	component: () => (
+		<CalcWrapper title={'Lüftungstechnik'}>
+			<AirCurrentCalculator />
+		</CalcWrapper>
+	),
+});
+
+const leakageRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/leakage',
+	component: () => (
+		<CalcWrapper title={'Leckage'}>
+			<LeakageCalculator />
+		</CalcWrapper>
+	),
+});
+
+const containerLeakageRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/containerLeakage',
+	component: () => (
+		<CalcWrapper title={'Behälter Leckage'}>
+			<ContainerLeakageCalculator />
+		</CalcWrapper>
+	),
+});
+
+const pressureWorkRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/pressureWork',
+	component: () => (
+		<CalcWrapper title={'Verdichtungsarbeit'}>
+			<PressureWorkCalculator />
+		</CalcWrapper>
+	),
+});
+
+const condensateRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/condensate',
+	component: () => (
+		<CalcWrapper title={'Kondensat'}>
+			<CondensateCalculator />
+		</CalcWrapper>
+	),
+});
+
+const unitsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/units',
+	component: () => (
+		<CalcWrapper title={'Einheiten Rechner'}>
+			<UnitCalculator />
+		</CalcWrapper>
+	),
+});
+
+const roomHeaterRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/roomHeater',
+	component: () => (
+		<CalcWrapper title={'Raumheizung durch Abluftwärme'}>
+			<RoomHeaterCalculator />
+		</CalcWrapper>
+	),
+});
+
+const settingsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/settings',
+	component: Settings,
+});
+
+const toolsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: '/tools',
+	component: Tools,
+});
+
+const routeTree = rootRoute.addChildren([
+	homeRoute,
+	containerRoute,
+	pipeCableRoute,
+	airCurrentRoute,
+	leakageRoute,
+	containerLeakageRoute,
+	pressureWorkRoute,
+	condensateRoute,
+	unitsRoute,
+	roomHeaterRoute,
+	settingsRoute,
+	toolsRoute,
 ]);
 
-export default router;
+const hashHistory = createHashHistory();
+
+export const router = createRouter({ routeTree, history: hashHistory });
+
+declare module '@tanstack/react-router' {
+	interface Register {
+		router: typeof router;
+	}
+}
