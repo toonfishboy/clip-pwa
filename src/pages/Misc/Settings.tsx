@@ -1,13 +1,13 @@
+import { useStore } from '@nanostores/react';
 import type { FC } from 'react';
 import Input from '../../controls/Inputs/Input';
 import LabelWrapper from '../../controls/LabelWrapper';
 import Container from '../../controls/Layout/Container';
 import Header from '../../controls/Layout/Header';
-import { useStore } from '@nanostores/react';
 import { $email } from '../../utils/stores';
 
 const Settings: FC = () => {
-    const email = useStore($email);
+	const email = useStore($email);
 
 	return (
 		<Container>

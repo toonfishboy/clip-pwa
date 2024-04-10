@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren, KeyboardEvent } from 'react';
+import type { FC, KeyboardEvent, PropsWithChildren } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
 interface ImageAccordionProps extends PropsWithChildren {

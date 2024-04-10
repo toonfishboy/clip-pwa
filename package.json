@@ -1,49 +1,51 @@
 {
-  "name": "clip-pwa",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "bun test --watch",
-    "commit": "git add * && cz",
-    "lint": "biome lint .",
-    "format": "biome format --write ."
-  },
-  "dependencies": {
-    "@nanostores/react": "^0.7.2",
-    "@tanstack/react-router": "^1.26.19",
-    "clsx": "^2.1.0",
-    "nanostores": "^0.10.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-error-boundary": "^4.0.13",
-    "react-icons": "^5.0.1",
-    "sass": "^1.74.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.6.4",
-    "@happy-dom/global-registrator": "^14.7.1",
-    "@testing-library/react": "^15.0.0",
-    "@types/bun": "^1.0.12",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react-swc": "^3.1.0",
-    "autoprefixer": "^10.4.13",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "jsdom": "^24.0.0",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.7",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.8",
-    "vite-plugin-pwa": "^0.19.8"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  }
+	"name": "clip-pwa",
+	"private": true,
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"test": "bun test",
+		"test:watch": "bun test --watch",
+		"commit": "git add * && cz",
+		"check": "biome check --apply .",
+		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"ci": "biome ci ."
+	},
+	"dependencies": {
+		"@nanostores/react": "^0.7.2",
+		"@tanstack/react-router": "^1.26.19",
+		"clsx": "^2.1.0",
+		"nanostores": "^0.10.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-error-boundary": "^4.0.13",
+		"react-icons": "^5.0.1",
+		"sass": "^1.74.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.6.4",
+		"@happy-dom/global-registrator": "^14.7.1",
+		"@testing-library/react": "^15.0.0",
+		"@types/bun": "^1.0.12",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@vitejs/plugin-react-swc": "^3.1.0",
+		"autoprefixer": "^10.4.13",
+		"commitizen": "^4.3.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"jsdom": "^24.0.0",
+		"postcss": "^8.4.21",
+		"tailwindcss": "^3.2.7",
+		"typescript": "^5.4.5",
+		"vite": "^5.2.8",
+		"vite-plugin-pwa": "^0.19.8"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	}
 }

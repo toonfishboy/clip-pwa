@@ -1,7 +1,7 @@
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { MdArrowBack, MdSettings } from 'react-icons/md';
 import { iconClassName } from '../../pages/Home';
-import { useNavigate } from '@tanstack/react-router';
 
 interface HeaderProps {
 	title: string;

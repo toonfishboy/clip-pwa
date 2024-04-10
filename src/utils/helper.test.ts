@@ -1,27 +1,27 @@
+import { describe, expect, it, jest } from 'bun:test';
 import { checkNaN, generateId, handleUnit, hasRequiredValues, round } from './helper';
-import { describe, it, expect, jest } from 'bun:test';
 
-describe("The unit is handled correctly", () => {
-    it("sets the value to an empty string if the value is an empty string", () => {
-        const setValue = jest.fn();
-        const setUnit = jest.fn();
-        handleUnit("", setValue, 0, setUnit);
-        expect(setValue).toHaveBeenCalledWith("");
-    });
-    it("sets the value to the given value if it is a valid number", () => {
-        const setValue = jest.fn();
-        const setUnit = jest.fn();
-        handleUnit("1", setValue, 0, setUnit);
-        expect(setValue).toHaveBeenCalledWith("1");
-        expect(setUnit).toHaveBeenCalledWith(1, 0);
-    });
-    it("does not set the value if it is NaN", () => {
-        const setValue = jest.fn();
-        const setUnit = jest.fn();
-        handleUnit("a", setValue, 0, setUnit);
-        expect(setValue).not.toHaveBeenCalled();
-        expect(setUnit).not.toHaveBeenCalled();
-    });
+describe('The unit is handled correctly', () => {
+	it('sets the value to an empty string if the value is an empty string', () => {
+		const setValue = jest.fn();
+		const setUnit = jest.fn();
+		handleUnit('', setValue, 0, setUnit);
+		expect(setValue).toHaveBeenCalledWith('');
+	});
+	it('sets the value to the given value if it is a valid number', () => {
+		const setValue = jest.fn();
+		const setUnit = jest.fn();
+		handleUnit('1', setValue, 0, setUnit);
+		expect(setValue).toHaveBeenCalledWith('1');
+		expect(setUnit).toHaveBeenCalledWith(1, 0);
+	});
+	it('does not set the value if it is NaN', () => {
+		const setValue = jest.fn();
+		const setUnit = jest.fn();
+		handleUnit('a', setValue, 0, setUnit);
+		expect(setValue).not.toHaveBeenCalled();
+		expect(setUnit).not.toHaveBeenCalled();
+	});
 });
 
 describe('A new id is generated every time the function is called', () => {
@@ -60,10 +60,10 @@ describe('The given object has all required values', () => {
 	});
 });
 
-describe("The given value is rounded to the given length", () => {
-    it("rounds the value to the given length", () => {
-        expect(round(1.2345)).toEqual(1.23);
-        expect(round(1.2345, 1)).toEqual(1.2);
-        expect(round(1.2345, 3)).toEqual(1.235);
-    });
+describe('The given value is rounded to the given length', () => {
+	it('rounds the value to the given length', () => {
+		expect(round(1.2345)).toEqual(1.23);
+		expect(round(1.2345, 1)).toEqual(1.2);
+		expect(round(1.2345, 3)).toEqual(1.235);
+	});
 });

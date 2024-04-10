@@ -65,7 +65,7 @@ const ListSelect = <T,>({
 	const handleSelect = (option: ListOption<T> | string) => {
 		if (isListOption(option)) onOptionChange?.(option);
 		onStringChange?.(displayOption(option));
-        setIsOpen(false);
+		setIsOpen(false);
 	};
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {

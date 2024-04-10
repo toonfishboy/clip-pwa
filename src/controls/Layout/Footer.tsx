@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import Button from './Button';
 import { useStore } from '@nanostores/react';
+import type { FC } from 'react';
 import { $email } from '../../utils/stores';
+import Button from './Button';
 
 interface FooterProps {
 	resetValues: () => void;

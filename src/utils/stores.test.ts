@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 import { createLocalStorageAtom } from './stores';
 
 describe('Store value is saved in localStorage', () => {
@@ -10,7 +10,7 @@ describe('Store value is saved in localStorage', () => {
 		expect(localStorage.getItem('test')).toEqual(JSON.stringify({ value: 'new value' }));
 		expect(value.get()).toEqual('new value');
 		value.set(null);
-        expect(localStorage.getItem('test')).toEqual(null);
-        expect(value.get()).toEqual(null);
+		expect(localStorage.getItem('test')).toEqual(null);
+		expect(value.get()).toEqual(null);
 	});
 });
