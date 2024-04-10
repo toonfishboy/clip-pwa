@@ -21,7 +21,7 @@ jobs:
           bun-version: latest
           
       - name: Run Install
-        run: bun run install
+        run: bun install
 
       - name: Run linter
         run: bun run lint

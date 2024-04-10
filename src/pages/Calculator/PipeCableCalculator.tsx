@@ -17,7 +17,7 @@ export type PipeValues = {
 	diameter: number | undefined;
 };
 
-type VolumeUnit = 'm³/m' | 'm³/h';
+export type VolumeUnit = 'm³/m' | 'm³/h';
 
 const defaultPipeValues: PipeValues = {
 	volume: undefined,
@@ -54,8 +54,8 @@ const PipeCableCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
 	const result = useMemo(() => {
 		const { volume = 0, length = 0, pressureLoss = 0, netPressure = 0, diameter = 0 } = pipeValues;
 		if (!hasRequiredValues(pipeValues, selected)) return;
-		return pipeCalculator(volume, length, pressureLoss, netPressure, diameter, selected);
-	}, [pipeValues, selected]);
+		return pipeCalculator(volume, volumeUnit, length, pressureLoss, netPressure, diameter, selected);
+	}, [pipeValues, selected, volumeUnit]);
 
 	const getCalcValue = <Key extends keyof PipeValues>(key: Key) => {
 		if (key === selected) return checkNaN(result?.result);
