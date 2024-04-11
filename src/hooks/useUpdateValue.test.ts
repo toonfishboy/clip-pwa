@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
 import { describe, expect, jest, test } from 'bun:test';
+import { act, renderHook } from '@testing-library/react';
 import { useState } from 'react';
 import { useUpdateValue } from './useUpdateValue';
 
