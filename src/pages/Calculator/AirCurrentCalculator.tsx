@@ -85,7 +85,7 @@ const AirCurrentCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
 		const { length, width } = airCurrentValues;
 		if (field === 'width' && length) updateAirCurrentValues('area')(round(length * value));
 		else if (field === 'length' && width) updateAirCurrentValues('area')(round(width * value));
-		else if (field === 'diameter') updateAirCurrentValues('area')(round((value / 2) * Math.PI));
+		else if (field === 'diameter') updateAirCurrentValues('area')(round((value / 2) ** 2 * Math.PI));
 	};
 
 	const getCalcValue = <Key extends keyof AirCurrentValues>(key: Key) => {
@@ -96,7 +96,7 @@ const AirCurrentCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
 				const value = checkNaN(Math.sqrt(result ?? 0));
 				return value !== undefined ? round(value) : undefined;
 			}
-			const value = checkNaN(Math.sqrt((result ?? 0) / Math.PI));
+			const value = checkNaN(Math.sqrt((result ?? 0) / Math.PI) * 2);
 			return value !== undefined ? round(value) : undefined;
 		}
 		return getAirCurrentValues(key);
@@ -114,35 +114,33 @@ const AirCurrentCalculator: FC<CalcProps> = ({ hasFooter = true }) => {
 				<LabelWrapper
 					className="gap-2"
 					header={<RadioButton label="Kühlluftmenge [m³/h]:" value={'volume'} />}
-				>
-					<ListSelect
-						disabled={selected === 'volume'}
-						options={volumeOptions}
-						selected={selectedVolume ?? volumeOptions[0]}
-						onOptionChange={(option) => updateAirCurrentValues('volume')(option.value)}
-					/>
-					<NumberInput
-						disabled={selected === 'volume'}
-						number={getCalcValue('volume')}
-						onNumberChange={updateAirCurrentValues('volume')}
-					/>
-				</LabelWrapper>
+				/>
+				<ListSelect
+					disabled={selected === 'volume'}
+					options={volumeOptions}
+					selected={selectedVolume ?? volumeOptions[0]}
+					onOptionChange={(option) => updateAirCurrentValues('volume')(option.value)}
+				/>
+				<NumberInput
+					disabled={selected === 'volume'}
+					number={getCalcValue('volume')}
+					onNumberChange={updateAirCurrentValues('volume')}
+				/>
 				<LabelWrapper
 					className="gap-2"
 					header={<RadioButton label="Empfohlene Geschwindigkeit [m/s]:" value={'velocity'} />}
-				>
-					<ListSelect
-						disabled={selected === 'volume'}
-						options={velocityOptions}
-						selected={selectedVelocity ?? velocityOptions[0]}
-						onOptionChange={(option) => updateAirCurrentValues('velocity')(option.value)}
-					/>
-					<NumberInput
-						disabled={selected === 'velocity'}
-						number={getCalcValue('velocity')}
-						onNumberChange={updateAirCurrentValues('velocity')}
-					/>
-				</LabelWrapper>
+				/>
+				<ListSelect
+					disabled={selected === 'volume'}
+					options={velocityOptions}
+					selected={selectedVelocity ?? velocityOptions[0]}
+					onOptionChange={(option) => updateAirCurrentValues('velocity')(option.value)}
+				/>
+				<NumberInput
+					disabled={selected === 'velocity'}
+					number={getCalcValue('velocity')}
+					onNumberChange={updateAirCurrentValues('velocity')}
+				/>
 				<LabelWrapper header={<RadioButton label="Freie Fläche [m²]:" value={'area'} />}>
 					<NumberInput
 						disabled={selected === 'area'}

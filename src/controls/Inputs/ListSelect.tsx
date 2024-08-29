@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, useEffect, useRef, useState, type MouseEvent } from 'react';
 
 export type ListOption<T = unknown> = {
 	key: string;
@@ -62,15 +62,16 @@ const ListSelect = <T,>({
 		return () => window.removeEventListener('click', handleRefClick);
 	}, [isOpen]);
 
-	const handleSelect = (option: ListOption<T> | string) => {
+	function handleSelect(event: MouseEvent | KeyboardEvent, option: ListOption<T> | string) {
+		event.preventDefault();
 		if (isListOption(option)) onOptionChange?.(option);
 		onStringChange?.(displayOption(option));
 		setIsOpen(false);
-	};
+	}
 
-	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+	function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		if (event.key === 'Space' || event.key === 'Enter') setIsOpen(!isOpen);
-	};
+	}
 
 	return (
 		<div ref={containerRef} className="relative">
@@ -94,8 +95,8 @@ const ListSelect = <T,>({
 							<div
 								key={getOptionKey(option)}
 								className="w-full rounded-md py-2 px-4 hover:cursor-pointer hover:bg-clip hover:text-white"
-								onClick={() => handleSelect(option)}
-								onKeyDown={() => handleSelect(option)}
+								onClick={(event) => handleSelect(event, option)}
+								onKeyDown={(event) => handleSelect(event, option)}
 							>
 								{displayOption(option)}
 							</div>
