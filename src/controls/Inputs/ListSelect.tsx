@@ -47,6 +47,7 @@ const ListSelect = <T,>({
 	className,
 	options,
 	selected,
+	disabled,
 	onOptionChange,
 	onStringChange,
 }: ListSelectProps<T>) => {
@@ -77,8 +78,10 @@ const ListSelect = <T,>({
 		<div ref={containerRef} className="relative">
 			<button
 				type="button"
+				disabled={disabled}
 				className={clsx(
-					'w-full rounded-md border border-slate-400 p-2 text-left hover:border-black focus:border-clip disabled:bg-gray-300 disabled:text-rose-600',
+					'w-full rounded-md border border-slate-400 p-2 text-left focus:border-clip disabled:bg-gray-300 disabled:text-rose-600',
+					!disabled && 'hover:border-black',
 					className,
 				)}
 				onClick={() => setIsOpen(!isOpen)}
