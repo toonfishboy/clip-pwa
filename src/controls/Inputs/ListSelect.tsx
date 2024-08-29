@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type KeyboardEvent, useEffect, useRef, useState, type MouseEvent } from 'react';
+import { type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
 
 export type ListOption<T = unknown> = {
 	key: string;
